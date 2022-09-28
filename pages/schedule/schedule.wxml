@@ -27,7 +27,7 @@
   <scroll-view scroll-x="false" scroll-y scroll-top="{{scrollTop}}" class="courseScroll">
     <view class="courseContent">
       <view class="courseTime">
-        <view wx:for="{{12}}" wx:key="index" class="left">
+        <view wx:for="{{11}}" wx:key="index" class="left">
           <view class="number">{{item+1}}</view>
           <view class="course-time">
             <view class="time-start">{{course_time[index][0]}}</view>
