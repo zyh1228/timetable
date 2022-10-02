@@ -49,6 +49,10 @@ Page({
       ['20:00','20:50'],
   ],
     wList: [
+      [],
+      [],
+      [],
+      [],
       [     //第一周 
         { "id":1,"isToday": 0, "jie": 7, "classNumber": 2, "name": "算法设计与分析","address":"111" },
         { "id":2,"isToday": 0, "jie": 1, "classNumber": 2, "name": "操作系统" ,"address":"112" },
@@ -148,6 +152,13 @@ Page({
       nowDay,
       month,
       monthNum: month / 1, // 当前月份数字类型，用于数字运算
+    })
+  },
+
+  gotoDetails: function(event) {
+    let id = event.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/schedule/details/details?id=' + id,
     })
   },
 
