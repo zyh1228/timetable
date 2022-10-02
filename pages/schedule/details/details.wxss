@@ -1,1 +1,143 @@
 /* pages/schedule/details/details.wxss */
+
+.filedItem {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px dashed #eee;
+  padding: 30rpx;
+  font-size: 30rpx;
+  color: #444;
+}
+
+.filedItem:last-child {
+  border-bottom: none;
+}
+
+.fieldLabel {
+  display: block;
+  color: #999;
+  white-space: nowrap;
+  width: 150rpx;
+  text-align: center;
+}
+
+.fieldControl {
+  flex: 8;
+  padding: 0 0 0 32rpx;
+  font-size: 32rpx;
+}
+
+.fieldInput {
+  font-size: 32rpx;
+}
+
+.filedSelector {
+  font-size: 30rpx;
+  display: inline-block;
+  text-align: center;
+}
+
+.fixed-button {
+  position: fixed;
+  bottom: 150rpx;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.button-group {
+  display: flex;
+}
+
+.button {
+  display: inline-block;
+  flex: 1;
+  border: 1px solid #eee;
+  border-radius: 10rpx;
+  border-image: none;
+  box-shadow: none;
+  background-color: #fff;
+  font-size: 32rpx;
+}
+
+.button-primary {
+  background-color: #3cc51f;
+  border: 1px solid #3cc51f;
+  color: #fff;
+}
+
+.button-completed {
+  background-color: #888888;
+  border: 1px solid #888888;
+  color: #fff;
+}
+
+.button-delete {
+  background-color: #E64340;
+  border: 1px solid #E64340;
+  color: #fff;
+}
+
+.button-round {
+  border-radius: 300rpx;
+}
+
+.bottom-button {
+  width:auto !important;
+  padding: 0 !important;
+}
+
+.create-header {
+  padding: 0;
+  border-bottom: 0;
+}
+
+button {
+  padding: 10rpx;
+  margin: 20rpx;
+}
+
+.field-content {
+  border: 1px solid red;
+}
+
+.todo-item__date {
+  font-size: 28rpx;
+  color: #ccc;
+  display: inline-block;
+  text-align: center;
+}
+
+.todo-item__time {
+  margin-left: 10rpx;
+  font-size: 28rpx;
+  color: #ccc;
+  display: inline-block;
+  text-align: center;
+}
+
+.textarea {
+  /* width: 100rpx; */
+  /* right: 50rpx; */
+/* position: static; */
+/* margin-right: 30rpx;
+ */
+ width: 90% !important;
+}
+
+.bottom-button {
+  width:auto !important;
+  padding: 0 !important;
+}
+
+.page {
+  padding-bottom: 0;
+}

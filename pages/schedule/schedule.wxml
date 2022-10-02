@@ -17,7 +17,7 @@
     </view>
     <view class="day">
       <view class="week {{todayMonth == monthNum && day == item?'todayDate':''}}" wx:for="{{nowDay}}" wx:key="index">
-        <view class="week-item">周{{week[index]}}</view>
+        <view class="week-item">{{week[index]}}</view>
         <view class="day-item">{{nowDay[index] == 1?(monthNum<12?monthNum+1:1)+'月':nowDay[index]+'日'}}</view>
       </view>
     </view>
