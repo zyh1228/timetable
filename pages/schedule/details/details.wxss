@@ -46,8 +46,10 @@
 }
 
 .bottom-button {
-  width:auto !important;
-  padding: 0 !important;
+  position: fixed;
+  width:100% !important;
+  bottom: 0;
+  /* padding: 50 !important; */
 }
 
 .fixed-button {
@@ -79,6 +81,8 @@
   box-shadow: none;
   background-color: #fff;
   font-size: 32rpx;
+  margin-left: 5% !important;
+  margin-right: 5% !important;
 }
 
 .button-primary {

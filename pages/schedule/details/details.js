@@ -20,7 +20,6 @@ Page({
     jieIndex: 0,
     number: [],
     numberIndex: 0,
-    // course: {"isToday": this.data.weekIndex, "jie": this.data.jieIndex, "classNumber": this.data.numberIndex, "name": null, "address": null },
   },
 
   nameChanged(e) {
@@ -77,6 +76,14 @@ Page({
     this.setData({
       other: e.detail.value
     })
+  },
+
+  cancelTap(e) {
+    wx.navigateBack()
+  },
+
+  saveCourse(e) {
+    course = {"isToday": this.data.weekIndex, "jie": this.data.jieIndex, "classNumber": this.data.numberIndex, "name": this.data.name, "address": this.data.address }
   },
 
   /**
