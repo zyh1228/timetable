@@ -4,7 +4,7 @@
     <view class="fieldItem">
       <label class="fieldLabel">课程名称</label>
       <label class="fieldControl">
-        <input class="fieldInput w-full" value="{{ plan.title }}" placeholder="课程名称..." bindinput="nameChanged" focus>
+        <input class="fieldInput w-full" value="{{name}}" placeholder="课程名称..." bindinput="nameChanged" focus>
         </input>
       </label>
     </view>
@@ -13,13 +13,13 @@
       <label class="fieldLabel">上课周次</label>
       <label class="fieldControl">
         <picker class="w-full fieldSelector" range="{{weekArray}}" value="{{beginWeek}}" bindchange="beginWeekChanged">
-          {{beginWeek ? weekArray[beginWeek]:"起始周"}}
+          {{weekArray[beginWeek]}}
         </picker>
       </label>
       <label class="fieldLabel">至</label>
       <label class="fieldControl">
         <picker class="w-full fieldSelector" range="{{weekArray}}" value="{{endWeek}}" bindchange="endWeekChanged">
-          {{endWeek ? weekArray[endWeek]:"结束周"}}
+          {{weekArray[endWeek]}}
         </picker>
       </label>
     </view>
@@ -51,7 +51,7 @@
     <view class="fieldItem">
       <label class="fieldLabel">上课地点</label>
       <label class="fieldControl">
-        <input class="fieldInput w-full" value="{{ plan.title }}" placeholder="上课地点..." bindinput="addressChanged">
+        <input class="fieldInput w-full" value="{{address}}" placeholder="上课地点..." bindinput="addressChanged">
         </input>
       </label>
     </view>
@@ -59,7 +59,7 @@
     <view class="fieldItem">
       <label class="fieldLabel">其他</label>
       <label class="fieldControl">
-        <textarea class="fieldInput w-full textarea" value="{{ plan.desc }}" placeholder="其他..." bindinput="otherChanged">
+        <textarea class="fieldInput w-full textarea" value="{{other}}" placeholder="其他..." bindinput="otherChanged">
         </textarea>
       </label>
     </view>

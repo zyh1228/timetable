@@ -1,4 +1,5 @@
 // pages/schedule/details/details.js
+import data from '../../../utils/data'
 const app = getApp()
 
 Page({
@@ -12,8 +13,8 @@ Page({
     address: '',
     other: '',
     weekArray: [],
-    beginWeek: null,
-    endWeek: null,
+    beginWeek: 0,
+    endWeek: 0,
     week: [],
     weekIndex: 0,
     jie: [],
@@ -83,7 +84,26 @@ Page({
   },
 
   saveCourse(e) {
-    course = {"isToday": this.data.weekIndex, "jie": this.data.jieIndex, "classNumber": this.data.numberIndex, "name": this.data.name, "address": this.data.address }
+    let course = {
+      'isToday': this.data.weekIndex,
+      'jie': this.data.jieIndex,
+      'classNumber': this.data.numberIndex,
+      'name': this.data.name,
+      'address': this.data.address,
+      'beginWeek': this.data.beginWeek,
+      'endWeek': this.data.endWeek,
+      'other': this.data.other,
+    }
+    if (course.name == '' || course.address == '') {
+      wx.showModal({
+        content: '课程名称或上课地点为空',
+        showCancel: false,
+      })
+      return
+    }
+    data.addCourse(course, ()=>{
+      data.getCourse((courses)=>{console.log(courses)})
+    })
   },
 
   /**
