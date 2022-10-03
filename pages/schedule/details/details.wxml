@@ -1,7 +1,7 @@
 <!--pages/schedule/details/details.wxml-->
 <view class="page">
   <view class="courseDetails" style="background: white;">
-    <view class="filedItem">
+    <view class="fieldItem">
       <label class="fieldLabel">课程名称</label>
       <label class="fieldControl">
         <input class="fieldInput w-full" value="{{ plan.title }}" placeholder="课程名称..." bindinput="nameChanged" focus>
@@ -9,46 +9,46 @@
       </label>
     </view>
 
-    <view class="filedItem">
+    <view class="fieldItem">
       <label class="fieldLabel">上课周次</label>
       <label class="fieldControl">
-        <picker class="w-full filedSelector" range="{{weekArray}}" value="{{beginWeek}}" bindchange="beginWeekChanged">
+        <picker class="w-full fieldSelector" range="{{weekArray}}" value="{{beginWeek}}" bindchange="beginWeekChanged">
           {{beginWeek ? weekArray[beginWeek]:"起始周"}}
         </picker>
       </label>
       <label class="fieldLabel">至</label>
       <label class="fieldControl">
-        <picker class="w-full filedSelector" range="{{weekArray}}" value="{{endWeek}}" bindchange="endWeekChanged">
+        <picker class="w-full fieldSelector" range="{{weekArray}}" value="{{endWeek}}" bindchange="endWeekChanged">
           {{endWeek ? weekArray[endWeek]:"结束周"}}
         </picker>
       </label>
     </view>
 
-    <view class="filedItem">
+    <view class="fieldItem">
       <label class="fieldLabel">上课时间</label>
       <label class="fieldControl">
-        <picker class="w-full filedSelector" range="{{week}}" value="{{weekIndex}}" bindchange="weekChanged">
+        <picker class="w-full fieldSelector" range="{{week}}" value="{{weekIndex}}" bindchange="weekChanged">
           {{week[weekIndex]}}
         </picker>
       </label>
     </view>
 
-    <view class="filedItem">
+    <view class="fieldItem">
       <label class="fieldLabel">开始节次</label>
       <label class="fieldControl">
-        <picker class="w-full filedSelector" range="{{jie}}" value="{{jieIndex}}" bindchange="jieChanded">
+        <picker class="w-full fieldSelector" range="{{jie}}" value="{{jieIndex}}" bindchange="jieChanded">
           {{jie[jieIndex]}}
         </picker>
       </label>
       <label class="fieldLabel">上课节数</label>
       <label class="fieldControl">
-        <picker class="w-full filedSelector" range="{{number}}" value="{{numberIndex}}" bindchange="numberChanded">
+        <picker class="w-full fieldSelector" range="{{number}}" value="{{numberIndex}}" bindchange="numberChanded">
           {{number[numberIndex]}}
         </picker>
       </label>
     </view>
 
-    <view class="filedItem">
+    <view class="fieldItem">
       <label class="fieldLabel">上课地点</label>
       <label class="fieldControl">
         <input class="fieldInput w-full" value="{{ plan.title }}" placeholder="上课地点..." bindinput="addressChanged">
@@ -56,29 +56,29 @@
       </label>
     </view>
 
-    <view class="filedItem">
+    <view class="fieldItem">
       <label class="fieldLabel">其他</label>
       <label class="fieldControl">
         <textarea class="fieldInput w-full textarea" value="{{ plan.desc }}" placeholder="其他..." bindinput="otherChanged">
         </textarea>
       </label>
     </view>
-
-    <view class="filedItem bottom-button">
-      <view class="button-group" style="width:100%">
-        <button class="button {{plan.completed ? 'button-completed': 'button-primary'}}" bindtap="handleCompletedTap" disabled='{{plan.completed}}'>完成啦</button>
-      </view>
-    </view>
-    <view class="filedItem bottom-button">
+  </view>
+  
+  <view class="bottom-button">
+    <view class="fieldItem">
       <view class="button-group" style="width:100%">
         <button class="button" bindtap="handleCancelTap">取消</button>
         <button class="button button-primary" bindtap="handleSaveTap">保存</button>
       </view>
     </view>
-    <view class='filedItem bottom-button'>
-      <view class="button-group" style="width:100%">
-        <button class="button button-delete" bindtap="handleDeleteTap">删除</button>
-      </view>
+    <view class="fieldItem">
+    <view class="button-group" style="width:100%">
+      <button class="button button-delete" bindtap="handleDeleteTap">删除</button>
     </view>
   </view>
+  </view>
+
+
+
 </view>

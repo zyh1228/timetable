@@ -72,25 +72,6 @@ Page({
       ],
   ]},
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    let nowWeek = this.getNowWeek()
-    let nowDay = this.getDayOfWeek(nowWeek)
-    let pageNum = nowWeek - 1
-    let month = this.getMonth((nowWeek - 1) * 7);
-    this.data.todayMonth
-    this.setData({
-      nowWeek,
-      nowDay,
-      pageNum,
-      todayWeek:nowWeek,
-      monthNum: month / 1, // 当前月份数字类型，用于数字运算
-      colorArrays: colors // 课表颜色
-    })
-  },
-
   // 获取第几周后的月份
   getMonth(days) {
     let [year,month,day] = this.data.schoolTime
@@ -155,17 +136,42 @@ Page({
     })
   },
 
-  gotoDetails: function(event) {
+  gotoDetails(event) {
     let id = event.currentTarget.dataset.id
     wx.navigateTo({
       url: '/pages/schedule/details/details?id=' + id,
     })
   },
 
+  addCourse(event) {
+    wx.navigateTo({
+      url: '/pages/schedule/details/details',
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad(options) {
+    let nowWeek = this.getNowWeek()
+    let nowDay = this.getDayOfWeek(nowWeek)
+    let pageNum = nowWeek - 1
+    let month = this.getMonth((nowWeek - 1) * 7);
+    this.data.todayMonth
+    this.setData({
+      nowWeek,
+      nowDay,
+      pageNum,
+      todayWeek:nowWeek,
+      monthNum: month / 1, // 当前月份数字类型，用于数字运算
+      colorArrays: colors // 课表颜色
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady() {
     this.setData({
       todayDay: new Date().getDate(),
       todayMonth: new Date().getMonth() + 1,
@@ -177,42 +183,42 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage() {
 
   }
 })

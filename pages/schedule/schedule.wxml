@@ -52,4 +52,5 @@
       </view>
     </view>
   </scroll-view>
+  <cover-view class="addBtn" bindtap="addCourse">+</cover-view>
 </view>

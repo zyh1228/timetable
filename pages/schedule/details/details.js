@@ -97,7 +97,6 @@ Page({
       jie: jie,
       number: number,
     })
-
   },
 
   /**

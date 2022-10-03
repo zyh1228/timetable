@@ -1,6 +1,6 @@
 /* pages/schedule/details/details.wxss */
 
-.filedItem {
+.fieldItem {
   width: 100%;
   display: flex;
   border-bottom: 1px dashed #eee;
@@ -9,7 +9,7 @@
   color: #444;
 }
 
-.filedItem:last-child {
+.fieldItem:last-child {
   border-bottom: none;
 }
 
@@ -31,10 +31,23 @@
   font-size: 32rpx;
 }
 
-.filedSelector {
+.fieldSelector {
   font-size: 30rpx;
   display: inline-block;
   text-align: center;
+}
+
+.textarea {
+  /* width: 100rpx; */
+  /* right: 50rpx; */
+/* position: static; */
+/* margin-right: 30rpx; */
+ width: 90% !important;
+}
+
+.bottom-button {
+  width:auto !important;
+  padding: 0 !important;
 }
 
 .fixed-button {
@@ -90,11 +103,6 @@
   border-radius: 300rpx;
 }
 
-.bottom-button {
-  width:auto !important;
-  padding: 0 !important;
-}
-
 .create-header {
   padding: 0;
   border-bottom: 0;
@@ -107,35 +115,6 @@ button {
 
 .field-content {
   border: 1px solid red;
-}
-
-.todo-item__date {
-  font-size: 28rpx;
-  color: #ccc;
-  display: inline-block;
-  text-align: center;
-}
-
-.todo-item__time {
-  margin-left: 10rpx;
-  font-size: 28rpx;
-  color: #ccc;
-  display: inline-block;
-  text-align: center;
-}
-
-.textarea {
-  /* width: 100rpx; */
-  /* right: 50rpx; */
-/* position: static; */
-/* margin-right: 30rpx;
- */
- width: 90% !important;
-}
-
-.bottom-button {
-  width:auto !important;
-  padding: 0 !important;
 }
 
 .page {
