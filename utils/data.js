@@ -42,6 +42,12 @@ function getCourseList(callback) {
   })
 }
 
+function getCourse(courseId, callback) {
+  getCourseList((courseList) => {
+    callback(courseList[courseId])
+  })
+}
+
 function addCourse(course, callback) {
   getInfo((info)=>{
     let courseId = info.nextCourseId
@@ -159,6 +165,7 @@ function setWeekCourse(courseId, beginWeek, endWeek, callback) {
 
 module.exports = {
   getCourseList,
+  getCourse,
   addCourse,
   setCourse,
   deleteCourse,

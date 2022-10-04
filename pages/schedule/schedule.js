@@ -112,7 +112,7 @@ Page({
   },
 
   // 获取课表数据
-  async getCourseList(week){
+  getCourseList(week){
     data.getCourseList((courses)=>{console.log(courses)})
     data.getWeekCourse(week, (weekCourse) => {
       console.log(weekCourse)
@@ -160,7 +160,6 @@ Page({
     let pageNum = nowWeek - 1
     let month = this.getMonth((nowWeek - 1) * 7);
     // this.data.todayMonth
-    this.getCourseList(nowWeek)
     this.setData({
       nowWeek,
       nowDay,
@@ -187,7 +186,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    console.log('aaa')
+    this.getCourseList(this.data.nowWeek)
   },
 
   /**

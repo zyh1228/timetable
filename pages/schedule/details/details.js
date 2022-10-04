@@ -86,8 +86,8 @@ Page({
   saveCourse(e) {
     let course = {
       'isToday': this.data.weekIndex,
-      'jie': this.data.jieIndex + 1,
-      'classNumber': this.data.numberIndex + 1,
+      'jie': Number(this.data.jieIndex) + 1,
+      'classNumber': Number(this.data.numberIndex) + 1,
       'name': this.data.name,
       'address': this.data.address,
       'beginWeek': this.data.beginWeek,
@@ -101,15 +101,24 @@ Page({
       })
       return
     }
-    data.addCourse(course, ()=>{
-      data.getCourseList((courses)=>{console.log(courses)})
-    })
+    if (this.data.courseId == undefined) {
+      data.addCourse(course, ()=>{
+        data.getCourseList((courses)=>{console.log(courses)})
+        wx.navigateBack()
+      })
+    }
+    else {
+      data.setCourse(this.data.courseId, course, () => {
+        wx.navigateBack()
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    let courseId = options.id
     let coursePerDay = app.globalData.coursePerDay
     let jie = []
     let number = []
@@ -118,12 +127,27 @@ Page({
       number.push((i + 1) + '节')
     }
     this.setData({
+      courseId: courseId,
       coursePerDay: coursePerDay,
       weekArray: app.globalData.weekArray,
       week: app.globalData.week,
       jie: jie,
       number: number,
     })
+    if (courseId != undefined) {
+      data.getCourse(courseId, (course) => {
+        this.setData({
+          weekIndex: course.isToday,
+          jieIndex: course.jie - 1,
+          numberIndex: course.classNumber - 1,
+          name: course.name,
+          address: course.address,
+          beginWeek: course.beginWeek,
+          endWeek: course.endWeek,
+          other: course.other,
+        })
+      })
+    }
   },
 
   /**

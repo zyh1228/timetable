@@ -66,17 +66,17 @@
   </view>
   
   <view class="bottom-button">
-    <view class="fieldItem" style="padding-left: 0;">
+    <view class="fieldItem" style="padding-left: 0; padding-bottom: 0;">
       <view class="button-group" style="width:100%">
         <button class="button" bindtap="cancelTap">取消</button>
         <button class="button button-primary" bindtap="saveCourse">保存</button>
       </view>
     </view>
-    <!-- <view class="fieldItem">
+    <view wx:if="{{courseId}}" class="fieldItem" style="padding-left: 0; padding-top: 0; padding-bottom: 0;">
       <view class="button-group" style="width:100%">
         <button class="button button-delete" bindtap="handleDeleteTap">删除</button>
       </view>
-    </view> -->
+    </view>
   </view>
 
 
