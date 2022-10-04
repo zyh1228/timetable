@@ -26,7 +26,7 @@ function setInfo(nextCourseId, callback=null) {
   })
 }
 
-function getCourse(callback) {
+function getCourseList(callback) {
   wx.getStorage({
     key: 'course',
     success(res) {
@@ -44,16 +44,17 @@ function getCourse(callback) {
 
 function addCourse(course, callback) {
   getInfo((info)=>{
-    let nextCourseId = info.nextCourseId
-    course['id'] = nextCourseId
-    getCourse((courses) => {
-      courses[nextCourseId] = course
+    let courseId = info.nextCourseId
+    course['id'] = courseId
+    getCourseList((courses) => {
+      courses[courseId] = course
       wx.setStorage({
         key: 'course',
         data: courses,
         success(res) {
-          setInfo(nextCourseId + 1, ()=>{callback(res.data)})
-
+          setInfo(courseId + 1, ()=>{})
+          setWeekCourse(courseId, course.beginWeek, course.endWeek, ()=>{})
+          callback(res.data)
         }
       })
     })
@@ -62,26 +63,32 @@ function addCourse(course, callback) {
 
 function setCourse(courseId, course, callback) {
   course['id'] = courseId
-  getCourse((courses) => {
+  getCourseList((courses) => {
     courses[courseId] = course
     wx.setStorage({
       key: 'course',
       data: courses,
-      success(res) {callback(res.data)}
+      success(res) {
+        setWeekCourse(courseId, course.beginWeek, course.endWeek, ()=>{})
+        callback(res.data)
+      }
     })
   })
 }
 
 function deleteCourse(courseId, callback) {
-  getCourse((courses) => {
-    if(courses.hasKey(courseId)) {
+  getCourseList((courses) => {
+    if(courseId in courses) {
       courses.splice(courses.indexOf(courseId), 1)
       wx.setStorage({
         key: 'course',
         data: courses,
-        success(res) {callback(res.data)}
+        success(res) {
+          setWeekCourse(courseId, undefined, undefined, ()=>{})
+          callback(res.data)
+        }
       })
-   }
+    }
   })
 }
 
@@ -102,14 +109,32 @@ function getWeekCourseList(callback) {
   })
 }
 
-function setWeekCourse(beginWeek, endWeek, courseId, callback) {
+function getWeekCourse(week, callback) {
   getWeekCourseList((weekCourseList) => {
-    if (weekCourseList.courses.hasKey(courseId)) {
+    let courseIds = weekCourseList.courseWeek[week]
+    let courses = []
+    getCourseList((courseList) => {
+      for (let courseId of courseIds) {
+        courses.push(courseList[courseId])
+      }
+      callback(courses)
+    })
+  })
+}
+
+function setWeekCourse(courseId, beginWeek, endWeek, callback) {
+  getWeekCourseList((weekCourseList) => {
+    if (courseId in weekCourseList.courses) {
       let oldWeekCourse = weekCourseList.courses[courseId]
       for (let i = oldWeekCourse[0]; i <= oldWeekCourse[1]; i++) {
         let courseWeek = weekCourseList.courseWeek[i]
         courseWeek.splice(courseWeek.indexOf(courseId), 1)
+        weekCourseList.courseWeek[i] = courseWeek
       }
+    }
+
+    if (beginWeek == undefined, endWeek == undefined) {
+      return
     }
 
     for (let i = beginWeek; i <= endWeek; i++) {
@@ -119,8 +144,8 @@ function setWeekCourse(beginWeek, endWeek, courseId, callback) {
       }
       courseWeek.push(courseId)
       weekCourseList.courseWeek[i] = courseWeek
-      weekCourseList.courses[courseId] = [beginWeek, endWeek]
     }
+    weekCourseList.courses[courseId] = [beginWeek, endWeek]
 
     wx.setStorage({
       key: 'weekCourse',
@@ -133,10 +158,10 @@ function setWeekCourse(beginWeek, endWeek, courseId, callback) {
 }
 
 module.exports = {
-  getCourse,
+  getCourseList,
   addCourse,
   setCourse,
   deleteCourse,
-  getWeekCourseList,
+  getWeekCourse,
   setWeekCourse,
 }

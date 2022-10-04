@@ -39,7 +39,7 @@
         </view>
       </view>
       <view class="course">
-        <view wx:for="{{wList[nowWeek-1]}}" wx:key="index" class="kcb-item" style="margin-left:{{item.isToday*100}}rpx; margin-top:{{(item.jie-1)*110+4}}rpx; height:{{item.classNumber*110 - 8}}rpx;">
+        <view wx:for="{{wList}}" wx:key="index" class="kcb-item" style="margin-left:{{item.isToday*100}}rpx; margin-top:{{(item.jie-1)*110+4}}rpx; height:{{item.classNumber*110 - 8}}rpx;">
           <view class="smalltext" style="background-color:{{colorArrays[item.id-1]}}" bindtap="gotoDetails" data-id="{{item.id}}">
             <view class="smalltextName">{{item.name}}</view>
             <view class="smalltextAddress">{{item.address}}</view>

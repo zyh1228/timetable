@@ -86,8 +86,8 @@ Page({
   saveCourse(e) {
     let course = {
       'isToday': this.data.weekIndex,
-      'jie': this.data.jieIndex,
-      'classNumber': this.data.numberIndex,
+      'jie': this.data.jieIndex + 1,
+      'classNumber': this.data.numberIndex + 1,
       'name': this.data.name,
       'address': this.data.address,
       'beginWeek': this.data.beginWeek,
@@ -102,7 +102,7 @@ Page({
       return
     }
     data.addCourse(course, ()=>{
-      data.getCourse((courses)=>{console.log(courses)})
+      data.getCourseList((courses)=>{console.log(courses)})
     })
   },
 

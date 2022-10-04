@@ -1,5 +1,6 @@
 // pages/schedule/schedule.js
-var colors =  [
+import data from '../../utils/data'
+const colors =  [
   "#AEEC34",
   "#FFC44F",
   "#85B0FD",
@@ -49,27 +50,21 @@ Page({
       ['20:00','20:50'],
     ],
     wList: [
-      [],
-      [],
-      [],
-      [],
-      [
-        { "id":1,"isToday": 0, "jie": 7, "classNumber": 2, "name": "算法设计与分析","address":"111" },
-        { "id":2,"isToday": 0, "jie": 1, "classNumber": 2, "name": "操作系统" ,"address":"112" },
-        { "id":3,"isToday": 0, "jie": 3, "classNumber": 2, "name": "毛概","address":"113" },
+      //   { "id":1,"isToday": 0, "jie": 7, "classNumber": 2, "name": "算法设计与分析","address":"111" },
+      //   { "id":2,"isToday": 0, "jie": 1, "classNumber": 2, "name": "操作系统" ,"address":"112" },
+      //   { "id":3,"isToday": 0, "jie": 3, "classNumber": 2, "name": "毛概","address":"113" },
 
-        { "id":4,"isToday": 1, "jie": 3, "classNumber": 2, "name": "Matlab" ,"address":"114" },
-        { "id":5,"isToday": 1, "jie": 5, "classNumber": 2, "name": "数据库原理及应用" ,"address":"115" },
-        { "id":7,"isToday": 1, "jie": 7, "classNumber": 2, "name": "数学建模","address":"116"},
+      //   { "id":4,"isToday": 1, "jie": 3, "classNumber": 2, "name": "Matlab" ,"address":"114" },
+      //   { "id":5,"isToday": 1, "jie": 5, "classNumber": 2, "name": "数据库原理及应用" ,"address":"115" },
+      //   { "id":7,"isToday": 1, "jie": 7, "classNumber": 2, "name": "数学建模","address":"116"},
        
-        { "id":6,"isToday": 2, "jie": 3, "classNumber": 3, "name": "计算机网络" ,"address":"117" },
-        { "id":2,"isToday": 2, "jie": 7, "classNumber": 2, "name": "操作系统" ,"address":"118" },
+      //   { "id":6,"isToday": 2, "jie": 3, "classNumber": 3, "name": "计算机网络" ,"address":"117" },
+      //   { "id":2,"isToday": 2, "jie": 7, "classNumber": 2, "name": "操作系统" ,"address":"118" },
 
-        { "id":3,"isToday": 3, "jie": 1, "classNumber": 2, "name": "毛概" ,"address":"119" },
-        { "id":6,"isToday": 3, "jie": 5, "classNumber": 2, "name": "计算机网络" ,"address":"120" },
+      //   { "id":3,"isToday": 3, "jie": 1, "classNumber": 2, "name": "毛概" ,"address":"119" },
+      //   { "id":6,"isToday": 3, "jie": 5, "classNumber": 2, "name": "计算机网络" ,"address":"120" },
         
-        { "id":1,"isToday": 4, "jie": 3, "classNumber": 2, "name": "算法设计与分析" ,"address":"121" },
-      ],
+      //   { "id":1,"isToday": 4, "jie": 3, "classNumber": 2, "name": "算法设计与分析" ,"address":"121" },
   ]},
 
   // 获取第几周后的月份
@@ -117,8 +112,14 @@ Page({
   },
 
   // 获取课表数据
-  async getCourseList(){
-
+  async getCourseList(week){
+    data.getCourseList((courses)=>{console.log(courses)})
+    data.getWeekCourse(week, (weekCourse) => {
+      console.log(weekCourse)
+      this.setData({
+        wList: weekCourse,
+      })
+    })
   },
 
   // 点击切换导航的回调
@@ -127,6 +128,7 @@ Page({
     let nowWeek = pageNum + 1
     let nowDay = this.getDayOfWeek(nowWeek)
     let month = this.getMonth((nowWeek-1)*7)
+    this.getCourseList(pageNum)
     this.setData({
       pageNum,
       nowWeek,
@@ -157,7 +159,8 @@ Page({
     let nowDay = this.getDayOfWeek(nowWeek)
     let pageNum = nowWeek - 1
     let month = this.getMonth((nowWeek - 1) * 7);
-    this.data.todayMonth
+    // this.data.todayMonth
+    this.getCourseList(nowWeek)
     this.setData({
       nowWeek,
       nowDay,
