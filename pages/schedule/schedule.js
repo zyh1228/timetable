@@ -109,7 +109,7 @@ Page({
   //获取一周的日期
   getDayOfWeek(week){
     var day = []
-    for (var i = -1; i < 6; i++) {
+    for (var i = 0; i < 7; i++) {
       var days = (week - 1) * 7 + i;
       day.push(this.getDay(days))
     }
