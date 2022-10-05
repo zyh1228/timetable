@@ -85,13 +85,13 @@ Page({
 
   saveCourse(e) {
     let course = {
-      'isToday': this.data.weekIndex,
+      'isToday': Number(this.data.weekIndex),
       'jie': Number(this.data.jieIndex) + 1,
       'classNumber': Number(this.data.numberIndex) + 1,
       'name': this.data.name,
       'address': this.data.address,
-      'beginWeek': this.data.beginWeek,
-      'endWeek': this.data.endWeek,
+      'beginWeek': Number(this.data.beginWeek),
+      'endWeek': Number(this.data.endWeek),
       'other': this.data.other,
     }
     if (course.name == '' || course.address == '') {

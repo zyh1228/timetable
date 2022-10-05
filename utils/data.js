@@ -120,8 +120,9 @@ function getWeekCourse(week, callback) {
     let courseIds = weekCourseList.courseWeek[week]
     let courses = []
     getCourseList((courseList) => {
-      for (let courseId of courseIds) {
-        courses.push(courseList[courseId])
+      console.log(courseIds)
+      for (let i in courseIds) {
+        courses.push(courseList[courseIds[i]])
       }
       callback(courses)
     })
