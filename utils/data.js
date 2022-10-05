@@ -85,13 +85,12 @@ function setCourse(courseId, course, callback) {
 function deleteCourse(courseId, callback) {
   getCourseList((courses) => {
     if(courseId in courses) {
-      courses.splice(courses.indexOf(courseId), 1)
+      delete courses[courseId]
       wx.setStorage({
         key: 'course',
         data: courses,
         success(res) {
-          setWeekCourse(courseId, undefined, undefined, ()=>{})
-          callback(res.data)
+          setWeekCourse(courseId, undefined, undefined, ()=>{callback(res.data)})
         }
       })
     }
@@ -132,6 +131,7 @@ function getWeekCourse(week, callback) {
 function setWeekCourse(courseId, beginWeek, endWeek, callback) {
   getWeekCourseList((weekCourseList) => {
     if (courseId in weekCourseList.courses) {
+      console.log('bb')
       let oldWeekCourse = weekCourseList.courses[courseId]
       for (let i = oldWeekCourse[0]; i <= oldWeekCourse[1]; i++) {
         let courseWeek = weekCourseList.courseWeek[i]
@@ -140,20 +140,22 @@ function setWeekCourse(courseId, beginWeek, endWeek, callback) {
       }
     }
 
-    if (beginWeek == undefined, endWeek == undefined) {
-      return
-    }
-
-    for (let i = beginWeek; i <= endWeek; i++) {
-      let courseWeek = weekCourseList.courseWeek[i]
-      if (!courseWeek) {
-        courseWeek = []
+    if (beginWeek != undefined && endWeek != undefined) {
+      for (let i = beginWeek; i <= endWeek; i++) {
+        let courseWeek = weekCourseList.courseWeek[i]
+        if (!courseWeek) {
+          courseWeek = []
+        }
+        courseWeek.push(courseId)
+        weekCourseList.courseWeek[i] = courseWeek
       }
-      courseWeek.push(courseId)
-      weekCourseList.courseWeek[i] = courseWeek
+      weekCourseList.courses[courseId] = [beginWeek, endWeek]
     }
-    weekCourseList.courses[courseId] = [beginWeek, endWeek]
+    else {
+      delete weekCourseList.courses[courseId]
+    }
 
+    console.log(weekCourseList)
     wx.setStorage({
       key: 'weekCourse',
       data: weekCourseList,

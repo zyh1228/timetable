@@ -186,8 +186,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    console.log('aaa')
-    this.getCourseList(this.data.nowWeek)
+    console.log('aaa', this.data.nowWeek, 'aaa')
+    this.getCourseList(this.data.nowWeek - 1)
   },
 
   /**

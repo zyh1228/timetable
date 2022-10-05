@@ -96,6 +96,7 @@ Page({
     }
     if (course.name == '' || course.address == '') {
       wx.showModal({
+        title: '提示',
         content: '课程名称或上课地点为空',
         showCancel: false,
       })
@@ -112,6 +113,22 @@ Page({
         wx.navigateBack()
       })
     }
+  },
+
+  deleteCourse(e) {
+    let that = this
+    wx.showModal({
+      title: '提示',
+      content: '是否删除当前课程',
+      success (res) {
+        if (res.confirm) {
+          data.deleteCourse(that.data.courseId, () => {
+            wx.navigateBack()
+          })
+        }
+      }
+    })
+
   },
 
   /**
