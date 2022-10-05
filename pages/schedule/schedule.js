@@ -24,19 +24,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    weekArray: ['第1周', '第2周', '第3周', '第4周', '第5周', '第6周', '第7周', '第8周', '第9周', '第10周', '第11周', '第12周', '第13周', '第14周', '第15周', '第16周'],
+    weekArray: [],
     pageNum: 0, // 当前所在分类的索引
     todayDay: '', // 今日日期
-    todayMonth:'', // 今日月份
-    todayWeek:'', // 今日周
-    day:'', // 日期
+    todayMonth: '', // 今日月份
+    todayWeek: '', // 今日周
+    day: '', // 日期
     month: '', // 月份
-    monthNum:1,
-    week: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'], // 周一为起始日
-    nowDay:[1,2,3,4,5,6,7], // 本周的七天日期
+    monthNum: 1,
+    week: [],
+    nowDay: [], // 本周的七天日期
     schoolTime: ['2022','09','05'], // 本学期开学时间
     nowWeek: '', // 当前周
-    course_time:[
+    course_time: [
       ['8:05','8:45'],
       ['8:45','9:25'],
       ['9:40','10:20'],
@@ -166,7 +166,9 @@ Page({
       pageNum,
       todayWeek:nowWeek,
       monthNum: month / 1, // 当前月份数字类型，用于数字运算
-      colorArrays: colors // 课表颜色
+      colorArrays: colors, // 课表颜色
+      weekArray: app.globalData.weekArray,
+      week: app.globalData.week,
     })
   },
 

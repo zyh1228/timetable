@@ -15,13 +15,13 @@ function getInfo(callback) {
   })
 }
 
-function setInfo(nextCourseId, callback=null) {
+function setInfo(nextCourseId, callback) {
   getInfo((info)=>{
     info['nextCourseId'] = nextCourseId
     wx.setStorage({
       key: 'info',
       data: info,
-      success(res) {}
+      success(res) {callback(res.data)}
     })
   })
 }
