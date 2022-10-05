@@ -64,7 +64,7 @@
       </label>
     </view>
   </view>
-  
+
   <view class="bottom-button">
     <view class="fieldItem" style="padding-left: 0; padding-bottom: 0;">
       <view class="button-group" style="width:100%">
@@ -78,7 +78,4 @@
       </view>
     </view>
   </view>
-
-
-
 </view>

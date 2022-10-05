@@ -34,38 +34,41 @@ Page({
     monthNum: 1,
     week: [],
     nowDay: [], // 本周的七天日期
-    schoolTime: ['2022','09','05'], // 本学期开学时间
     nowWeek: '', // 当前周
+    schoolTime: ['2022','09','05'], // 本学期开学时间
+    coursePerDay: 12,
     course_time: [
-      ['8:05','8:45'],
-      ['8:45','9:25'],
-      ['9:40','10:20'],
-      ['10:30','11:10'],
-      ['11:20','12:00'],
-      ['13:40','14:20'],
-      ['14:30','15:10'],
-      ['15:20','16:00'],
-      ['18:30','19:10'],
-      ['19:20','20:00'],
-      ['20:00','20:50'],
+      ['8:05', '8:45'],
+      ['8:45', '9:25'],
+      ['9:40', '10:20'],
+      ['10:30', '11:10'],
+      ['11:20', '12:00'],
+      ['13:40', '14:20'],
+      ['14:30', '15:10'],
+      ['15:20', '16:00'],
+      ['16:10', '16:50'],
+      ['18:30', '19:10'],
+      ['19:20', '20:00'],
+      ['20:00', '20:50'],
     ],
     wList: [
-      //   { "id":1,"isToday": 0, "jie": 7, "classNumber": 2, "name": "算法设计与分析","address":"111" },
-      //   { "id":2,"isToday": 0, "jie": 1, "classNumber": 2, "name": "操作系统" ,"address":"112" },
-      //   { "id":3,"isToday": 0, "jie": 3, "classNumber": 2, "name": "毛概","address":"113" },
+        // { "id":1,"isToday": 0, "jie": 7, "classNumber": 2, "name": "算法设计与分析","address":"111" },
+        // { "id":2,"isToday": 0, "jie": 1, "classNumber": 2, "name": "操作系统" ,"address":"112" },
+        // { "id":3,"isToday": 0, "jie": 3, "classNumber": 2, "name": "毛概","address":"113" },
 
-      //   { "id":4,"isToday": 1, "jie": 3, "classNumber": 2, "name": "Matlab" ,"address":"114" },
-      //   { "id":5,"isToday": 1, "jie": 5, "classNumber": 2, "name": "数据库原理及应用" ,"address":"115" },
-      //   { "id":7,"isToday": 1, "jie": 7, "classNumber": 2, "name": "数学建模","address":"116"},
+        // { "id":4,"isToday": 1, "jie": 3, "classNumber": 2, "name": "Matlab" ,"address":"114" },
+        // { "id":5,"isToday": 1, "jie": 5, "classNumber": 2, "name": "数据库原理及应用" ,"address":"115" },
+        // { "id":7,"isToday": 1, "jie": 7, "classNumber": 2, "name": "数学建模","address":"116"},
        
-      //   { "id":6,"isToday": 2, "jie": 3, "classNumber": 3, "name": "计算机网络" ,"address":"117" },
-      //   { "id":2,"isToday": 2, "jie": 7, "classNumber": 2, "name": "操作系统" ,"address":"118" },
+        // { "id":6,"isToday": 2, "jie": 3, "classNumber": 3, "name": "计算机网络" ,"address":"117" },
+        // { "id":2,"isToday": 2, "jie": 7, "classNumber": 2, "name": "操作系统" ,"address":"118" },
 
-      //   { "id":3,"isToday": 3, "jie": 1, "classNumber": 2, "name": "毛概" ,"address":"119" },
-      //   { "id":6,"isToday": 3, "jie": 5, "classNumber": 2, "name": "计算机网络" ,"address":"120" },
+        // { "id":3,"isToday": 3, "jie": 1, "classNumber": 2, "name": "毛概" ,"address":"119" },
+        // { "id":6,"isToday": 3, "jie": 5, "classNumber": 2, "name": "计算机网络" ,"address":"120" },
         
-      //   { "id":1,"isToday": 4, "jie": 3, "classNumber": 2, "name": "算法设计与分析" ,"address":"121" },
-  ]},
+        // { "id":1,"isToday": 4, "jie": 3, "classNumber": 2, "name": "算法设计与分析" ,"address":"121" },
+    ]
+  },
 
   // 获取第几周后的月份
   getMonth(days) {
@@ -164,7 +167,7 @@ Page({
       nowWeek,
       nowDay,
       pageNum,
-      todayWeek:nowWeek,
+      todayWeek: nowWeek,
       monthNum: month / 1, // 当前月份数字类型，用于数字运算
       colorArrays: colors, // 课表颜色
       weekArray: app.globalData.weekArray,
