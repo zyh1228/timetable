@@ -1,1 +1,139 @@
 /* pages/mine/mine.wxss */
+.userInfo{
+  height: 50px;
+  background-color: white;
+  height: 200rpx;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.userAvatar{
+  position: absolute;
+  height: 120rpx;
+  width: 120rpx;
+  margin: 30rpx 0rpx 0rpx 50rpx;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.userName{
+  position: absolute;
+  margin: 30rpx 0rpx 0rpx 200rpx;
+  border-radius: 100rpx;
+  font-weight: bolder;
+  font-size: large;
+  font-family: -webkit-body;
+}
+
+.userText{
+  position: absolute;
+  margin: 110rpx 0rpx 0rpx 200rpx;
+  border-radius: 100rpx;
+  font-family: -webkit-body;
+  font-size: small;
+  color:rgba(0,0,0,.3);
+}
+
+.content {
+  padding: 0 30rpx 40rpx;
+}
+
+.navigator-box {
+  opacity: 0;
+  position: relative;
+  background-color: #FFFFFF;
+  line-height: 1.41176471;
+  font-size: 34rpx;
+  transform: translateY(-50%);
+  transition: .3s;
+}
+
+.navigator-box-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navigator {
+  padding: 20rpx 30rpx;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.navigator:before {
+  content: " ";
+  position: absolute;
+  left: 30rpx;
+  top: 0;
+  right: 30rpx;
+  height: 1px;
+  border-top: 1rpx solid #D8D8D8;
+  color: #D8D8D8;
+}
+
+.navigator:first-child:before {
+  display: none;
+}
+
+.navigator-text {
+  flex: 1;
+}
+
+.navigator-arrow {
+  padding-right: 26rpx;
+  position: relative;
+}
+
+.navigator-arrow:after {
+  content: " ";
+  display: inline-block;
+  height: 18rpx;
+  width: 18rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #888888;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  position: absolute;
+  top: 50%;
+  margin-top: -8rpx;
+  right: 28rpx;
+}
+
+.content-list-item {
+  margin: 20rpx 0;
+  background-color: #FFFFFF;
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+.content-list-item:first-child {
+  margin-top: 0;
+}
+
+.content-list-text{
+  flex: 1;
+}
+
+.content-list-img {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.content-list-item-hd {
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  transition: opacity .3s;
+}
+
+.content-list-item-hd-show {
+  opacity: .2;
+}
+
+.content-list-item-bd {
+  height: 0;
+  overflow: hidden;
+}
+
+.content-list-item-bd-show {
+  height: auto;
+}

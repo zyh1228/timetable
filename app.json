@@ -4,7 +4,8 @@
     "pages/logs/logs",
     "pages/schedule/schedule",
     "pages/mine/mine",
-    "pages/schedule/details/details"
+    "pages/schedule/details/details",
+    "pages/mine/setting/setting"
   ],
   "window": {
     "backgroundTextStyle": "light",
