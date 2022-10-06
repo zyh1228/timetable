@@ -1,0 +1,32 @@
+<!--pages/todo/todo.wxml-->
+<view class="todo_container">
+  <view class="header">
+    <input class="newTodo" value="{{input}}" placeholder="添加待办"  bindinput="inputChanged" bindconfirm="addTodo" confirm-type="done"/>
+    <image class="add" wx:if="{{input}}" bindtap="addTodo" src="/icons/yes.png"/>
+  </view>
+  <block wx:if="{{todos.length}}">
+    <view class="footer">
+      <image class="btn" bindtap="toggleAllTodos" src="/icons/allselect.png"/>
+      <text class="foottext" wx:if="{{leftCount}}">剩 {{leftCount}} 个任务待完成</text>
+      <image class="btn" wx:if="{{todos.length > leftCount}}" bindtap="clearCompletedTodos" src="/icons/delete.png"/>
+    </view>
+    <view class="todos">
+      <!-- List items should get the class `completed` when marked as completed -->
+      <view class="item{{item.completed ? ' completed' : ''}}" wx:for="{{todos}}" wx:key="index" bindtap="toggleTodo" data-index="{{index}}">
+        <!-- completed: success, todo: circle -->
+        <icon class="checkbox" type="{{item.completed ? 'success' : 'circle'}}"/>
+        <text class="name">{{item.name}}</text>
+        <icon class="remove" type="clear" size="16" catchtap="deleteTodo" data-index="{{index}}"/>
+      </view>
+    </view>
+
+  </block>
+  <block wx:else>
+    <view class="nodata">
+		  <image class="nodata_img" src="/icons/nodata.png"></image>
+      <text class="nodata_text">今天的任务都完成了！</text>
+    </view>
+  </block>
+
+</view>
+<toast hidden="{{toastHidden}}" bindchange="hideToast">已清除</toast>

@@ -5,7 +5,8 @@
     "pages/schedule/schedule",
     "pages/mine/mine",
     "pages/schedule/details/details",
-    "pages/mine/setting/setting"
+    "pages/mine/setting/setting",
+    "pages/todo/todo"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -27,6 +28,12 @@
         "text": "课程表",
         "iconPath": "icons/schedule.png",
         "selectedIconPath": "icons/schedule1.png"
+      },
+      {
+        "pagePath": "pages/todo/todo",
+        "text": "待办",
+        "iconPath": "icons/todo.png",
+        "selectedIconPath": "icons/todo1.png"
       },
       {
         "pagePath": "pages/mine/mine",
