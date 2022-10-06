@@ -10,6 +10,7 @@ Page({
   data: {
     input: '',
     todos: [],
+    todosCompleted: [],
     leftCount: 0,
     allCompleted: false,
     toastHidden: true,
@@ -20,9 +21,11 @@ Page({
   },
 
   LoadTodoList() {
-    data.getTodoList((todoList) => {
+    data.getTodoStatusList((todoStatusList) => {
       this.setData({
-        todos: Object.values(todoList)
+        todos: todoStatusList.uncompleted,
+        todosCompleted: todoStatusList.completed,
+        leftCount: todoStatusList.uncompleted.length
       })
     })
   },
@@ -41,13 +44,6 @@ Page({
         leftCount: this.data.leftCount + 1,
       })
     })
-    // let todos = this.data.todos
-    // todos.push({ name: this.data.input, completed: false })
-    // this.setData({
-    //   input: '',
-    //   todos: todos,
-    //   leftCount: this.data.leftCount + 1,
-    // })
   },
 
   toggleAllTodos(e) {
@@ -59,29 +55,17 @@ Page({
           this.LoadTodoList()
         })
       }
-      // todos[i].completed = this.data.allCompleted
     }
-    // this.setData({
-    //   todos: todos,
-    //   leftCount: this.data.allCompleted ? 0 : todos.length,
-    // })
     wx.vibrateShort()
   },
 
   clearCompletedTodos(e) {
-    let todos = this.data.todos
-    let remains = []
-    for (let i = 0; i < todos.length; i++) {
-      if (todos[i].completed == true) {
-        data.deleteTodo(todos[i].id, () => {
+    let todosCompleted = this.data.todosCompleted
+    for (let i = 0; i < todosCompleted.length; i++) {
+        data.deleteTodo(todosCompleted[i].id, () => {
           this.LoadTodoList()
         })
       }
-      // todos[i].completed || remains.push(todos[i])
-    }
-    // this.setData({
-    //   todos: remains
-    // })
     this.setData({
       toastHidden: false
     })
@@ -91,15 +75,11 @@ Page({
   toggleTodo(e) {
     let todoId = e.currentTarget.dataset.id
     let index = e.currentTarget.dataset.index
-    // todos[index].completed = !todos[index].completed
-    data.setTodoStatus(todoId, !this.data.todos[index].completed, () => {
+    let isCompleted = e.currentTarget.dataset.iscompleted
+    let list = isCompleted ? this.data.todosCompleted : this.data.todos
+    data.setTodoStatus(todoId, !list[index].completed, () => {
       this.LoadTodoList()
     })
-    // let todos = this.data.todos
-    // this.setData({
-    //   todos: todos,
-    //   leftCount: this.data.leftCount + (todos[index].completed ? -1 : 1),
-    // })
   },
 
   deleteTodo(e) {

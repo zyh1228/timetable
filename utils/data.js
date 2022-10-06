@@ -254,6 +254,21 @@ function getTodoStatus(callback) {
   })
 }
 
+function getTodoStatusList(callback) {
+  getTodoStatus((todoStatus) => {
+    let todoStatusList = {completed: [], uncompleted: []}
+    getTodoList((todos) => {
+      for (let i = 0; i < todoStatus.completed.length; i++) {
+        todoStatusList.completed.push(todos[todoStatus.completed[i]])
+      }
+      for (let i = 0; i < todoStatus.uncompleted.length; i++) {
+        todoStatusList.uncompleted.push(todos[todoStatus.uncompleted[i]])
+      }
+      callback(todoStatusList)
+    })
+  })
+}
+
 function setTodoStatus(todoId, isCompoleted, callback) {
   if (isCompoleted == undefined) {
     getTodoStatus((todoStatus) => {
@@ -303,5 +318,6 @@ module.exports = {
   getTodoList,
   addTodo,
   deleteTodo,
+  getTodoStatusList,
   setTodoStatus,
 }
