@@ -11,15 +11,12 @@
       <image class="btn" wx:if="{{todos.length > leftCount}}" bindtap="clearCompletedTodos" src="/icons/delete.png"/>
     </view>
     <view class="todos">
-      <!-- List items should get the class `completed` when marked as completed -->
-      <view class="item{{item.completed ? ' completed' : ''}}" wx:for="{{todos}}" wx:key="index" bindtap="toggleTodo" data-index="{{index}}">
-        <!-- completed: success, todo: circle -->
-        <icon class="checkbox" type="{{item.completed ? 'success' : 'circle'}}"/>
+      <view class="item{{item.completed ? ' completed' : ''}}" wx:for="{{todos}}" wx:key="index" bindtap="toggleTodo" data-index="{{index}}" style="background-color:{{colorArrays[index % colorArrays.length]}}">
+        <icon class="checkbox" type="{{item.completed ? 'success' : 'circle'}}" color="black"/>
         <text class="name">{{item.name}}</text>
         <icon class="remove" type="clear" size="16" catchtap="deleteTodo" data-index="{{index}}"/>
       </view>
     </view>
-
   </block>
   <block wx:else>
     <view class="nodata">
@@ -27,6 +24,5 @@
       <text class="nodata_text">今天的任务都完成了！</text>
     </view>
   </block>
-
 </view>
 <toast hidden="{{toastHidden}}" bindchange="hideToast">已清除</toast>

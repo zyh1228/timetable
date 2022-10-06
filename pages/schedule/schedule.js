@@ -1,21 +1,5 @@
 // pages/schedule/schedule.js
 import data from '../../utils/data'
-const colors =  [
-  "#AEEC34",
-  "#FFC44F",
-  "#85B0FD",
-  "#FEA17C",
-  "#FF9392",
-  "#D48DF9",
-  "#7FCFF8",
-  "#85B8CF", 
-  "#90C652", 
-  "#D8AA5A", 
-  "#FC9F9D", 
-  "#0A9A84", 
-  "#61BC69", 
-  "#12AEF3", 
-  "#E29AAD"]
 const app = getApp()
 
 Page({
@@ -169,7 +153,7 @@ Page({
       pageNum,
       todayWeek: nowWeek,
       monthNum: month / 1, // 当前月份数字类型，用于数字运算
-      colorArrays: colors, // 课表颜色
+      colorArrays: app.globalData.colorArray, // 课表颜色
       weekArray: app.globalData.weekArray,
       week: app.globalData.week,
     })
