@@ -5,7 +5,7 @@ function getInfo(callback) {
       callback(res.data)
     },
     fail() {
-      let info = {nextCourseId: 1}
+      let info = {nextCourseId: 1, nextTodoId: 1}
       wx.setStorage({
         key: 'info',
         data: info
@@ -15,9 +15,12 @@ function getInfo(callback) {
   })
 }
 
-function setInfo(nextCourseId, callback) {
+function setInfo(nextCourseId, nextTodoId, callback) {
   getInfo((info)=>{
-    info['nextCourseId'] = nextCourseId
+    if (nextCourseId != undefined)
+      info['nextCourseId'] = nextCourseId
+    if (nextTodoId != undefined)
+      info['nextTodoId'] = nextTodoId
     wx.setStorage({
       key: 'info',
       data: info,
@@ -58,7 +61,7 @@ function addCourse(course, callback) {
         key: 'course',
         data: courses,
         success(res) {
-          setInfo(courseId + 1, ()=>{})
+          setInfo(courseId + 1, undefined, ()=>{})
           setWeekCourse(courseId, course.beginWeek, course.endWeek, ()=>{})
           callback(res.data)
         }
@@ -119,7 +122,6 @@ function getWeekCourse(week, callback) {
     let courseIds = weekCourseList.courseWeek[week]
     let courses = []
     getCourseList((courseList) => {
-      console.log(courseIds)
       for (let i in courseIds) {
         courses.push(courseList[courseIds[i]])
       }
@@ -131,7 +133,6 @@ function getWeekCourse(week, callback) {
 function setWeekCourse(courseId, beginWeek, endWeek, callback) {
   getWeekCourseList((weekCourseList) => {
     if (courseId in weekCourseList.courses) {
-      console.log('bb')
       let oldWeekCourse = weekCourseList.courses[courseId]
       for (let i = oldWeekCourse[0]; i <= oldWeekCourse[1]; i++) {
         let courseWeek = weekCourseList.courseWeek[i]
@@ -155,13 +156,138 @@ function setWeekCourse(courseId, beginWeek, endWeek, callback) {
       delete weekCourseList.courses[courseId]
     }
 
-    console.log(weekCourseList)
     wx.setStorage({
       key: 'weekCourse',
       data: weekCourseList,
       success(res) {
         callback(res.data)
       }
+    })
+  })
+}
+
+function getTodoList(callback) {
+  wx.getStorage({
+    key: 'todo',
+    success(res) {
+      callback(res.data)
+    },
+    fail() {
+      let todo = {}
+      wx.setStorage({
+        key: 'todo',
+        data: todo
+      })
+      callback(todo)
+    }
+  })
+}
+
+function getTodo(todoId, callback) {
+  getTodoList((todoList) => {
+    callback(todoList[todoId])
+  })
+}
+
+function addTodo(todo, callback) {
+  getInfo((info)=>{
+    let todoId = info.nextTodoId
+    todo['id'] = todoId
+    getTodoList((todos) => {
+      todos[todoId] = todo
+      wx.setStorage({
+        key: 'todo',
+        data: todos,
+        success(res) {
+          setInfo(undefined, todoId + 1, ()=>{})
+          setTodoStatus(todoId, false, ()=>{})
+          callback(res.data)
+        }
+      })
+    })
+  })
+}
+
+function setTodo(todoId, todo, callback) {
+  todo['id'] = todoId
+  getTodoList((todos) => {
+    todos[todoId] = todo
+    wx.setStorage({
+      key: 'todo',
+      data: todos,
+      success(res) {
+        callback(res.data)
+      }
+    })
+  })
+}
+
+function deleteTodo(todoId, callback) {
+  getTodoList((todos) => {
+    if(todoId in todos) {
+      delete todos[todoId]
+      wx.setStorage({
+        key: 'todo',
+        data: todos,
+        success(res) {
+          setTodoStatus(todoId, undefined, ()=>{callback(res.data)})
+        }
+      })
+    }
+  })
+}
+
+function getTodoStatus(callback) {
+  wx.getStorage({
+    key: 'todoStatus',
+    success(res) {
+      callback(res.data)
+    },
+    fail() {
+      let todoStatus = {completed: [], uncompleted: []}
+      wx.setStorage({
+        key: 'todoStatus',
+        data: todoStatus
+      })
+      callback(todoStatus)
+    }
+  })
+}
+
+function setTodoStatus(todoId, isCompoleted, callback) {
+  if (isCompoleted == undefined) {
+    getTodoStatus((todoStatus) => {
+      todoStatus.completed.splice(todoStatus.completed.indexOf(todoId), 1)
+      todoStatus.uncompleted.splice(todoStatus.uncompleted.indexOf(todoId), 1)
+      wx.setStorage({
+        key: 'todoStatus',
+        data: todoStatus,
+        success(res) {
+          callback(res.data)
+        }
+      })
+    })
+    return
+  }
+  getTodo(todoId, (todo) => {
+    todo.completed = isCompoleted
+    setTodo(todoId, todo, () => {})
+    getTodoStatus((todoStatus) => {
+      if (isCompoleted == true) {
+        todoStatus.completed.push(todoId)
+        todoStatus.uncompleted.splice(todoStatus.uncompleted.indexOf(todoId), 1)
+      }
+      else if(isCompoleted == false) {
+        todoStatus.uncompleted.push(todoId)
+        todoStatus.completed.splice(todoStatus.completed.indexOf(todoId), 1)
+      }
+      wx.setStorage({
+        key: 'todoStatus',
+        data: todoStatus,
+        success(res) {
+          callback(res.data)
+        }
+      })
     })
   })
 }
@@ -174,4 +300,8 @@ module.exports = {
   deleteCourse,
   getWeekCourse,
   setWeekCourse,
+  getTodoList,
+  addTodo,
+  deleteTodo,
+  setTodoStatus,
 }
