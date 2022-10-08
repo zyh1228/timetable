@@ -1,5 +1,5 @@
 // pages/schedule/schedule.js
-import data from '../../utils/data'
+import data, { getCourseList } from '../../utils/data'
 const app = getApp()
 
 Page({
@@ -110,9 +110,7 @@ Page({
 
   // 获取课表数据
   getCourseList(week){
-    data.getCourseList((courses)=>{console.log(courses)})
     data.getWeekCourse(week, (weekCourse) => {
-      console.log(weekCourse)
       this.setData({
         wList: weekCourse,
       })
@@ -156,13 +154,10 @@ Page({
 
   movePrepared(event){
     wx.vibrateLong()
-    // let index = event.currentTarget.dataset.index
     let offsetX = wx.getSystemInfoSync().windowWidth * 0.07
     this.setData({
       x: event.detail.x - offsetX,
       y: event.detail.y - 90 + this.data.scrollTop,
-      // x: event.currentTarget.offsetLeft,
-      // y: event.currentTarget.offsetTop,
       offsetX: offsetX,
       offsetY: 90,
       hidden: false,
@@ -190,10 +185,8 @@ Page({
       if (i >= 0 && j >= 0) {
         for (let index = 0; index < this.data.wList[this.data.moveCourseIndex].classNumber; index++) {
           let key = (j + index) + '-' + i
-          console.log(index, key)
           elements[key] = true
         }
-
         this.setData({
           elements: elements
         })
@@ -202,6 +195,28 @@ Page({
   },
 
   moveEnd(event) {
+    let that = this
+    if(that.data.flag){
+      let jie = Math.trunc(that.data.y / 60)
+      let isToday = Math.trunc(that.data.x / (wx.getSystemInfoSync().windowWidth * 0.92 / 7))
+      let course = that.data.wList[that.data.moveCourseIndex]
+      if(jie + course.classNumber <= that.data.coursePerDay) {
+        wx.showModal({
+          title: '提示',
+          content: '将课程改到',
+          success (res) {
+            if (res.confirm) {
+              course.jie = jie + 1
+              course.isToday = isToday
+              // console.log(course.id)
+              data.setCourse(course.id, course, ()=>{
+                that.getCourseList(that.data.pageNum)
+              })
+            }
+          }
+        })
+      }
+    }
     this.setData({
       hidden: true,
       flag: false,
@@ -256,8 +271,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    console.log('aaa', this.data.nowWeek, 'aaa')
-    this.getCourseList(this.data.nowWeek - 1)
+    this.getCourseList(this.data.pageNum)
   },
 
   /**
