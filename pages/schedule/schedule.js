@@ -58,7 +58,7 @@ Page({
     y:0,
     disabled: true,
     moveCourseIndex: 0,
-    elements:[],
+    elements:{},
     scrollTop: 0,
     offsetX: 0,
     offsetY: 0,
@@ -168,7 +168,6 @@ Page({
       hidden: false,
       flag:true,
     })
-    console.log(event)
   },
 
   moveStarted(event) {
@@ -185,13 +184,28 @@ Page({
         x: x - this.data.offsetX,
         y: y - this.data.offsetY  + this.data.scrollTop,
       })
+      let i = Math.trunc(this.data.x / (wx.getSystemInfoSync().windowWidth * 0.92 / 7))
+      let j = Math.trunc(this.data.y / 60)
+      let elements = {}
+      if (i >= 0 && j >= 0) {
+        for (let index = 0; index < this.data.wList[this.data.moveCourseIndex].classNumber; index++) {
+          let key = (j + index) + '-' + i
+          console.log(index, key)
+          elements[key] = true
+        }
+
+        this.setData({
+          elements: elements
+        })
+      }
     }
   },
 
   moveEnd(event) {
     this.setData({
       hidden: true,
-      flag: false
+      flag: false,
+      elements: {},
     })
   },
 

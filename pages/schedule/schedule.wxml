@@ -37,8 +37,8 @@
       </view>
       <view class="course">
         <view class="kcb-background">
-          <view wx:for="{{coursePerDay}}" class="line">
-            <view wx:for="{{7}}" wx:key="index" class="item" style="margin-left:{{index * 100}}rpx;"></view>
+          <view wx:for="{{coursePerDay}}" wx:for-index="i" class="line">
+            <view wx:for="{{7}}" wx:key="index" id="{{i}}{{index}}" class="item {{elements[i+'-'+index]?'selected':''}}" style="margin-left:{{index * 100}}rpx;"></view>
           </view>
         </view>
         <movable-area class="kcb-froeground" style="height: {{hight}}px !important;">
