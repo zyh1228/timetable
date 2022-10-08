@@ -42,17 +42,20 @@
   width: calc(100% - 8%);
   margin: 0 auto;
 }
+
 .date .day .week{
   width: calc(100% / 7);
   display: inline-block;
   height: 100%;
   text-align: center;
 }
+
 .date .day .week-item{
   font-size: 24rpx;
   font-weight: 700;
   line-height: 1.8;
 }
+
 .date .day .day-item{
   font-size: 22rpx;
   color: #333;
@@ -142,8 +145,9 @@
 }
 
 .course .kcb-background .line {
-  height:110rpx;
+  height: 110rpx;
   margin-left: 5rpx;
+  margin-top: 1rpx;
 }
 
 .course .kcb-background .line .item {
@@ -159,6 +163,7 @@
 .course .kcb-froeground {
   position: absolute;
   width: 92%;
+  height: 100%;
 }
 
 .course .kcb-froeground .kcb-item {

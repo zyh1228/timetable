@@ -24,7 +24,7 @@
   </view>
 
   <!-- 课表区域 -->
-  <scroll-view scroll-x="false" scroll-y scroll-top="{{scrollTop}}" class="courseScroll">
+  <scroll-view scroll-x="false" scroll-y scroll-top="{{scrollTop}}" class="courseScroll" bindscroll="scrolling">
     <view class="courseContent">
       <view class="courseTime">
         <view wx:for="{{coursePerDay}}" wx:key="index" class="left">
@@ -34,9 +34,6 @@
             <view class="time-end">{{course_time[index][1]}}</view>
           </view>
         </view>
-        <!-- <view>
-          <view>其他课程</view>
-        </view> -->
       </view>
       <view class="course">
         <view class="kcb-background">
@@ -44,14 +41,20 @@
             <view wx:for="{{7}}" wx:key="index" class="item" style="margin-left:{{index * 100}}rpx;"></view>
           </view>
         </view>
-        <view class="kcb-froeground">
-          <view wx:for="{{wList}}" wx:key="index" class="kcb-item" style="margin-left:{{item.isToday * 100}}rpx; margin-top:{{(item.jie - 1) * 110 + 4}}rpx; height:{{item.classNumber * 110 - 8}}rpx;">
-            <view class="smalltext" style="background-color:{{colorArrays[(item.id - 1) % colorArrays.length]}}" bindtap="gotoDetails" data-id="{{item.id}}">
+        <movable-area class="kcb-froeground" style="height: {{hight}}px !important;">
+          <view wx:for="{{wList}}" wx:key="index" id="kcb-item-{{index}}" class="kcb-item" style="margin-left:{{item.isToday * 100}}rpx; margin-top:{{(item.jie - 1) * 110 + 4}}rpx; height:{{item.classNumber * 110 - 8}}rpx;" bindlongpress="movePrepared">
+            <view class="smalltext" style="background-color:{{colorArrays[(item.id - 1) % colorArrays.length]}}" bindtap="gotoDetails" data-id="{{item.id}}" data-index="{{index}}" bindtouchstart="moveStarted" bindtouchend="moveEnd" bindtouchmove="moving">
               <view class="smalltextName">{{item.name}}</view>
               <view class="smalltextAddress">{{item.address}}</view>
             </view>
           </view>
-        </view>
+          <movable-view class="kcb-item" x="{{x}}" y="{{y}}" direction="all" damping="{{5000}}" friction="{{1}}" disabled="{{disabled}}">
+            <view class="smalltext" style="background-color:{{colorArrays[(wList[moveCourseIndex].id - 1) % colorArrays.length]}}; height: {{wList[moveCourseIndex].classNumber * 110 - 8}}rpx !important;" wx:if="{{!hidden}}">
+              <view class="smalltextName">{{wList[moveCourseIndex].name}}</view>
+              <view class="smalltextAddress">{{wList[moveCourseIndex].address}}</view>
+            </view>
+          </movable-view>
+        </movable-area>
       </view>
     </view>
   </scroll-view>

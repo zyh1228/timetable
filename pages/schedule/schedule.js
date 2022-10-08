@@ -51,7 +51,17 @@ Page({
         // { "id":6,"isToday": 3, "jie": 5, "classNumber": 2, "name": "计算机网络" ,"address":"120" },
         
         // { "id":1,"isToday": 4, "jie": 3, "classNumber": 2, "name": "算法设计与分析" ,"address":"121" },
-    ]
+    ],
+    hidden:true,
+    flag:false,
+    x:0,
+    y:0,
+    disabled: true,
+    moveCourseIndex: 0,
+    elements:[],
+    scrollTop: 0,
+    offsetX: 0,
+    offsetY: 0,
   },
 
   // 获取第几周后的月份
@@ -138,6 +148,53 @@ Page({
     })
   },
 
+  scrolling(event) {
+    this.setData({
+      scrollTop: event.detail.scrollTop
+    })
+  },
+
+  movePrepared(event){
+    wx.vibrateLong()
+    // let index = event.currentTarget.dataset.index
+    let offsetX = wx.getSystemInfoSync().windowWidth * 0.07
+    this.setData({
+      x: event.detail.x - offsetX,
+      y: event.detail.y - 90 + this.data.scrollTop,
+      // x: event.currentTarget.offsetLeft,
+      // y: event.currentTarget.offsetTop,
+      offsetX: offsetX,
+      offsetY: 90,
+      hidden: false,
+      flag:true,
+    })
+    console.log(event)
+  },
+
+  moveStarted(event) {
+    this.setData({
+      moveCourseIndex: event.currentTarget.dataset.index,
+    })
+  },
+
+  moving(event) {
+    if(this.data.flag){
+      const x = event.touches[0].pageX
+      const y = event.touches[0].pageY
+      this.setData({
+        x: x - this.data.offsetX,
+        y: y - this.data.offsetY  + this.data.scrollTop,
+      })
+    }
+  },
+
+  moveEnd(event) {
+    this.setData({
+      hidden: true,
+      flag: false
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -147,6 +204,16 @@ Page({
     let pageNum = nowWeek - 1
     let month = this.getMonth((nowWeek - 1) * 7);
     // this.data.todayMonth
+    let query = wx.createSelectorQuery();
+    let nodesRef = query.select(".kcb-background");
+    nodesRef.fields({
+      dataset: true,
+      rect:true
+    },(result)=>{
+      this.setData({
+        hight: result.bottom - result.top 
+      })
+    }).exec()
     this.setData({
       nowWeek,
       nowDay,

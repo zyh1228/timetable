@@ -41,7 +41,6 @@ Page({
       this.LoadTodoList()
       this.setData({
         input: '',
-        leftCount: this.data.leftCount + 1,
       })
     })
   },
