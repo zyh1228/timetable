@@ -1,1 +1,55 @@
 /* pages/mine/setting/setting.wxss */
+
+.fieldItem {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px dashed #eee;
+  padding: 30rpx;
+  font-size: 30rpx;
+  color: #444;
+}
+
+.fieldItem:last-child {
+  border-bottom: none;
+}
+
+.fieldLabel {
+  display: block;
+  color: #999;
+  white-space: nowrap;
+  width: 150rpx;
+  text-align: center;
+}
+
+.fieldControl {
+  flex: 8;
+  padding: 0 0 0 32rpx;
+  font-size: 32rpx;
+}
+
+.fieldInput {
+  font-size: 32rpx;
+}
+
+.fieldSelector {
+  font-size: 30rpx;
+  display: inline-block;
+  text-align: center;
+}
+
+.textarea {
+ width: 90% !important;
+}
+
+.create-header {
+  padding: 0;
+  border-bottom: 0;
+}
+
+.field-content {
+  border: 1px solid red;
+}
+
+.page {
+  padding-bottom: 0;
+}

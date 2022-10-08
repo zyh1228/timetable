@@ -1,2 +1,39 @@
 <!--pages/mine/setting/setting.wxml-->
-<text>pages/mine/setting/setting.wxml</text>
+<view class="page">
+  <view class="settings" style="background: white;">
+    <view class="fieldItem">
+      <label class="fieldLabel">总周数</label>
+      <label class="fieldControl">
+        <input class="fieldInput w-full" value="{{totalWeek}}" type="number" bindinput="totalWeekChanged"></input>
+      </label>
+      <label class="fieldLabel">每日节数</label>
+      <label class="fieldControl">
+        <input class="fieldInput w-full" value="{{coursePerDay}}" type="number" bindinput="coursePerDayChanged"></input>
+      </label>
+    </view>
+
+    <view class="fieldItem">
+      <label class="fieldLabel">起始周</label>
+      <label class="fieldControl">
+        <picker class="w-full fieldSelector" mode="date" value="{{schoolTimeDisplay}}" bindchange="schoolTimeChanged">
+          {{schoolTimeDisplay == [] ? schoolTimeDisplay : '请选择起始周'}}
+        </picker>
+      </label>
+    </view>
+
+    <view wx:for="{{coursePerDay}}" wx:key="index" class="fieldItem">
+      <label class="fieldLabel">第{{index + 1}}节</label>
+      <label class="fieldControl">
+        <picker class="w-full fieldSelector" mode="time" value="{{courseTimeDisplay[index][0]}}" bindchange="courseTimeChanded" data-index="{{index}}" data-flag="start">
+          {{courseTimeDisplay[index][0]?courseTimeDisplay[index][0]:'上课时间'}}
+        </picker>
+      </label>
+      <label class="fieldLabel">至</label>
+      <label class="fieldControl">
+        <picker class="w-full fieldSelector" mode="time" value="{{courseTimeDisplay[index][1]}}" bindchange="courseTimeChanded" data-index="{{index}}" data-flag="end">
+          {{courseTimeDisplay[index][1]?courseTimeDisplay[index][1]:'下课时间'}}
+        </picker>
+      </label>
+    </view>
+  </view>
+</view>

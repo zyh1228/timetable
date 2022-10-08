@@ -1,5 +1,5 @@
 // pages/schedule/schedule.js
-import data, { getCourseList } from '../../utils/data'
+import data from '../../utils/data'
 const app = getApp()
 
 Page({
