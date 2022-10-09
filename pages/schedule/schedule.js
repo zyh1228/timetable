@@ -243,13 +243,6 @@ Page({
         hight: result.bottom - result.top 
       })
     }).exec()
-    data.getScheduleInfo((ScheduleInfo) => {
-      this.setData({
-        coursePerDay: ScheduleInfo.coursePerDay,
-        course_time: ScheduleInfo.courseTime,
-        schoolTime: ScheduleInfo.schoolTime
-      })
-    })
     this.setData({
       nowWeek,
       nowDay,
@@ -278,6 +271,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    data.getScheduleInfo((ScheduleInfo) => {
+      this.setData({
+        coursePerDay: ScheduleInfo.coursePerDay,
+        course_time: ScheduleInfo.courseTime,
+        schoolTime: ScheduleInfo.schoolTime
+      })
+    })
     this.getCourseList(this.data.pageNum)
   },
 

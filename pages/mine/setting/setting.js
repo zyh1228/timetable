@@ -26,10 +26,7 @@ Page({
   coursePerDayChanged(e) {
     let coursePerDay = Number(e.detail.value)
     let courseTimeDisplay = this.data.courseTimeDisplay
-    // let courseTime = this.data.schoolTime
     for (let index = 0; index < coursePerDay; index++) {
-      // if (courseTime[index] == undefined)
-        // courseTime[index] = [] 
       if (courseTimeDisplay[index] == undefined)
         courseTimeDisplay[index] = []
     }
@@ -100,7 +97,13 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload() {
-
+    let scheduleInfo = {
+      totalWeek: this.data.totalWeek,
+      coursePerDay: this.data.coursePerDay,
+      schoolTime: this.data.schoolTime,
+      courseTime: this.data.courseTimeDisplay
+    }
+    data.setScheduleInfo(scheduleInfo, ()=>{})
   },
 
   /**
