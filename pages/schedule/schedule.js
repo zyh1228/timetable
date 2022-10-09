@@ -52,10 +52,11 @@ Page({
         
         // { "id":1,"isToday": 4, "jie": 3, "classNumber": 2, "name": "算法设计与分析" ,"address":"121" },
     ],
-    hidden:true,
-    flag:false,
-    x:0,
-    y:0,
+    hidden: true,
+    flag: false,
+    isMoved: false,
+    x: 0,
+    y: 0,
     disabled: true,
     moveCourseIndex: 0,
     elements:{},
@@ -86,13 +87,13 @@ Page({
   getNowWeek(){
     var date = new Date();
     let [year, month, day] = this.data.schoolTime
-    var start = new Date(year, month-1, day);
+    var start = new Date(year, month - 1, day);
     //计算时间差
-    var left_time = parseInt((date.getTime()-start.getTime())/1000)+24 * 60 * 60;
-    var days = parseInt(left_time/3600/24);
+    var left_time = parseInt((date.getTime() - start.getTime()) / 1000) //+ 24 * 60 * 60;
+    var days = parseInt(left_time / 3600 / 24);
     var week = Math.floor(days / 7) + 1;
     var result = week
-    if(week>20 || week <= 0){
+    if(week > this.data.weekArray.length || week <= 0){
       result = this.data.now_week;
     }
     return result
@@ -153,7 +154,7 @@ Page({
   },
 
   movePrepared(event){
-    wx.vibrateLong()
+    wx.vibrateShort()
     let offsetX = wx.getSystemInfoSync().windowWidth * 0.07
     this.setData({
       x: event.detail.x - offsetX,
@@ -178,6 +179,7 @@ Page({
       this.setData({
         x: x - this.data.offsetX,
         y: y - this.data.offsetY  + this.data.scrollTop,
+        isMoved: true,
       })
       let i = Math.trunc(this.data.x / (wx.getSystemInfoSync().windowWidth * 0.92 / 7))
       let j = Math.trunc(this.data.y / 60)
@@ -196,7 +198,7 @@ Page({
 
   moveEnd(event) {
     let that = this
-    if(that.data.flag){
+    if(that.data.flag && that.data.isMoved) {
       let jie = Math.trunc(that.data.y / 60) + 1
       let isToday = Math.trunc(that.data.x / (wx.getSystemInfoSync().windowWidth * 0.92 / 7))
       let course = that.data.wList[that.data.moveCourseIndex]
@@ -208,7 +210,6 @@ Page({
             if (res.confirm) {
               course.jie = jie
               course.isToday = isToday
-              // console.log(course.id)
               data.setCourse(course.id, course, ()=>{
                 that.getCourseList(that.data.pageNum)
               })
@@ -228,11 +229,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let nowWeek = this.getNowWeek()
-    let nowDay = this.getDayOfWeek(nowWeek)
-    let pageNum = nowWeek - 1
-    let month = this.getMonth((nowWeek - 1) * 7);
-    // this.data.todayMonth
     let query = wx.createSelectorQuery();
     let nodesRef = query.select(".kcb-background");
     nodesRef.fields({
@@ -244,13 +240,7 @@ Page({
       })
     }).exec()
     this.setData({
-      nowWeek,
-      nowDay,
-      pageNum,
-      todayWeek: nowWeek,
-      monthNum: month / 1, // 当前月份数字类型，用于数字运算
       colorArrays: app.globalData.colorArray, // 课表颜色
-      weekArray: app.globalData.weekArray,
       week: app.globalData.week,
     })
   },
@@ -271,11 +261,28 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    data.getScheduleInfo((ScheduleInfo) => {
+    data.getScheduleInfo((scheduleInfo) => {
+      let totalWeek = scheduleInfo.totalWeek
+      let weekArray = []
+      for (let i = 0; i < totalWeek; i++) {
+        weekArray.push('第' + (i + 1) + '周')
+      }
       this.setData({
-        coursePerDay: ScheduleInfo.coursePerDay,
-        course_time: ScheduleInfo.courseTime,
-        schoolTime: ScheduleInfo.schoolTime
+        coursePerDay: scheduleInfo.coursePerDay,
+        course_time: scheduleInfo.courseTime,
+        schoolTime: scheduleInfo.schoolTime,
+        weekArray: weekArray
+      })
+      let nowWeek = this.getNowWeek()
+      let nowDay = this.getDayOfWeek(nowWeek)
+      let pageNum = nowWeek - 1
+      let month = this.getMonth((nowWeek - 1) * 7)
+      this.setData({
+        nowWeek,
+        nowDay,
+        pageNum,
+        todayWeek: nowWeek,
+        monthNum: month / 1, // 当前月份数字类型，用于数字运算
       })
     })
     this.getCourseList(this.data.pageNum)

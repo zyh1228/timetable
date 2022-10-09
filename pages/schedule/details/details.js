@@ -135,21 +135,29 @@ Page({
    */
   onLoad(options) {
     let courseId = options.id
-    let coursePerDay = app.globalData.coursePerDay
-    let jie = []
-    let number = []
-    for (let i = 0; i < coursePerDay; i++) {
-      jie.push('第' + (i + 1) + '节')
-      number.push((i + 1) + '节')
-    }
-    this.setData({
-      courseId: courseId,
-      coursePerDay: coursePerDay,
-      weekArray: app.globalData.weekArray,
-      week: app.globalData.week,
-      jie: jie,
-      number: number,
+    data.getScheduleInfo((scheduleInfo) => {
+      let coursePerDay = scheduleInfo.coursePerDay
+      let jie = []
+      let number = []
+      for (let i = 0; i < coursePerDay; i++) {
+        jie.push('第' + (i + 1) + '节')
+        number.push((i + 1) + '节')
+      }
+      let totalWeek = scheduleInfo.totalWeek
+      let weekArray = []
+      for (let i = 0; i < totalWeek; i++) {
+        weekArray.push('第' + (i + 1) + '周')
+      }
+      this.setData({
+        courseId: courseId,
+        coursePerDay: coursePerDay,
+        weekArray: weekArray,
+        week: app.globalData.week,
+        jie: jie,
+        number: number,
+      })
     })
+
     if (courseId != undefined) {
       data.getCourse(courseId, (course) => {
         this.setData({
