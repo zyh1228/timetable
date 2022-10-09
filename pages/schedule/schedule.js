@@ -197,16 +197,16 @@ Page({
   moveEnd(event) {
     let that = this
     if(that.data.flag){
-      let jie = Math.trunc(that.data.y / 60)
+      let jie = Math.trunc(that.data.y / 60) + 1
       let isToday = Math.trunc(that.data.x / (wx.getSystemInfoSync().windowWidth * 0.92 / 7))
       let course = that.data.wList[that.data.moveCourseIndex]
-      if(jie + course.classNumber <= that.data.coursePerDay) {
+      if(jie + course.classNumber <= that.data.coursePerDay + 1 && !(course.jie == jie && course.isToday == isToday)) {
         wx.showModal({
           title: '提示',
-          content: '将课程改到',
+          content: '修改课程时间',
           success (res) {
             if (res.confirm) {
-              course.jie = jie + 1
+              course.jie = jie
               course.isToday = isToday
               // console.log(course.id)
               data.setCourse(course.id, course, ()=>{
