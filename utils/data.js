@@ -200,8 +200,7 @@ function addTodo(todo, callback) {
         data: todos,
         success(res) {
           setInfo(undefined, todoId + 1, ()=>{})
-          setTodoStatus(todoId, false, ()=>{})
-          callback(res.data)
+          setTodoStatus(todoId, false, ()=>{callback(res.data)})
         }
       })
     })
