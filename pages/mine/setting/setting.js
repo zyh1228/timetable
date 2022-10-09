@@ -1,4 +1,5 @@
 // pages/mine/setting/setting.js
+import data from '../../../utils/data'
 const app = getApp()
 
 
@@ -63,9 +64,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.setData({
-      // totalWeek: app.globalData.totalWeek,
-      // coursePerDay: app.globalData.coursePerDay,
+    data.getScheduleInfo((scheduleInfo) => {
+      this.setData({
+        totalWeek: scheduleInfo.totalWeek,
+        coursePerDay: scheduleInfo.coursePerDay,
+        schoolTime: scheduleInfo.schoolTime,
+        schoolTimeDisplay: scheduleInfo.schoolTime[0] + '-' + scheduleInfo.schoolTime[1] + '-' + scheduleInfo.schoolTime[2],
+        courseTimeDisplay: scheduleInfo.courseTime,
+      })
     })
   },
 

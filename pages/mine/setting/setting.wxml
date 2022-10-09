@@ -16,7 +16,7 @@
       <label class="fieldLabel">起始周</label>
       <label class="fieldControl">
         <picker class="w-full fieldSelector" mode="date" value="{{schoolTimeDisplay}}" bindchange="schoolTimeChanged">
-          {{schoolTimeDisplay == [] ? schoolTimeDisplay : '请选择起始周'}}
+          {{schoolTimeDisplay != [] ? schoolTimeDisplay : '请选择起始周'}}
         </picker>
       </label>
     </view>
