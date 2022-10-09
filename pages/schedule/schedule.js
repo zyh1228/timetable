@@ -22,18 +22,18 @@ Page({
     schoolTime: ['2022','09','05'], // 本学期开学时间
     coursePerDay: 12,
     course_time: [
-      ['8:05', '8:45'],
-      ['8:45', '9:25'],
-      ['9:40', '10:20'],
-      ['10:30', '11:10'],
-      ['11:20', '12:00'],
-      ['13:40', '14:20'],
-      ['14:30', '15:10'],
-      ['15:20', '16:00'],
-      ['16:10', '16:50'],
-      ['18:30', '19:10'],
-      ['19:20', '20:00'],
-      ['20:00', '20:50'],
+      // ['8:05', '8:45'],
+      // ['8:45', '9:25'],
+      // ['9:40', '10:20'],
+      // ['10:30', '11:10'],
+      // ['11:20', '12:00'],
+      // ['13:40', '14:20'],
+      // ['14:30', '15:10'],
+      // ['15:20', '16:00'],
+      // ['16:10', '16:50'],
+      // ['18:30', '19:10'],
+      // ['19:20', '20:00'],
+      // ['20:00', '20:50'],
     ],
     wList: [
         // { "id":1,"isToday": 0, "jie": 7, "classNumber": 2, "name": "算法设计与分析","address":"111" },
@@ -243,6 +243,13 @@ Page({
         hight: result.bottom - result.top 
       })
     }).exec()
+    data.getScheduleInfo((ScheduleInfo) => {
+      this.setData({
+        coursePerDay: ScheduleInfo.coursePerDay,
+        course_time: ScheduleInfo.courseTime,
+        schoolTime: ScheduleInfo.schoolTime
+      })
+    })
     this.setData({
       nowWeek,
       nowDay,

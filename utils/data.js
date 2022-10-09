@@ -29,6 +29,51 @@ function setInfo(nextCourseId, nextTodoId, callback) {
   })
 }
 
+function getScheduleInfo(callback) {
+  wx.getStorage({
+    key: 'scheduleInfo',
+    success(res) {
+      callback(res.data)
+    },
+    fail() {
+      let scheduleInfo = {
+        totalWeek: 16,
+        coursePerDay: 12,
+        schoolTime: ['2022','09','05'],
+        courseTime: [
+          ['8:05', '8:45'],
+          ['8:45', '9:25'],
+          ['9:40', '10:20'],
+          ['10:30', '11:10'],
+          ['11:20', '12:00'],
+          ['13:40', '14:20'],
+          ['14:30', '15:10'],
+          ['15:20', '16:00'],
+          ['16:10', '16:50'],
+          ['18:30', '19:10'],
+          ['19:20', '20:00'],
+          ['20:00', '20:50'],
+        ]
+      }
+      wx.setStorage({
+        key: 'scheduleInfo',
+        data: scheduleInfo
+      })
+      callback(scheduleInfo)
+    }
+  })
+}
+
+function setScheduleInfo(scheduleInfo, callback) {
+  wx.setStorage({
+    key: 'scheduleInfo',
+    data: scheduleInfo,
+    success(res) {
+      callback(res.data)
+    }
+  })
+}
+
 function getCourseList(callback) {
   wx.getStorage({
     key: 'course',
@@ -307,7 +352,8 @@ function setTodoStatus(todoId, isCompoleted, callback) {
 }
 
 module.exports = {
-  getCourseList,
+  getScheduleInfo,
+  setScheduleInfo,
   getCourse,
   addCourse,
   setCourse,
