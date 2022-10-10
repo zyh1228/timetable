@@ -46,29 +46,44 @@ Page({
   },
 
   toggleAllTodos(e) {
-    let todos = this.data.todos
-    // this.data.allCompleted = !this.data.allCompleted
-    for (let i = todos.length - 1; i >= 0; i--) {
-      // if (todos[i].completed != this.data.allCompleted) {
-        data.setTodoStatus(todos[i].id, true, ()=>{
-          this.LoadTodoList()
-        })
-      // }
-    }
     wx.vibrateShort()
+    let todos = this.data.todos
+    let that = this
+    wx.showModal({
+      title: '提示',
+      content: '标记全部待办为完成',
+      success(res) {
+        if (res.confirm) {
+          for (let i = todos.length - 1; i >= 0; i--) {
+            data.setTodoStatus(todos[i].id, true, ()=>{
+              that.LoadTodoList()
+            })
+          }
+        }
+      }
+    })
   },
 
   clearCompletedTodos(e) {
-    let todosCompleted = this.data.todosCompleted
-    for (let i = 0; i < todosCompleted.length; i++) {
-        data.deleteTodo(todosCompleted[i].id, () => {
-          this.LoadTodoList()
-        })
-      }
-    this.setData({
-      toastHidden: false
-    })
+    let that = this
     wx.vibrateShort()
+    wx.showModal({
+      title: '提示',
+      content: '删除所有已完成的待办',
+      success(res) {
+        if (res.confirm) {
+          let todosCompleted = that.data.todosCompleted
+          for (let i = 0; i < todosCompleted.length; i++) {
+              data.deleteTodo(todosCompleted[i].id, () => {
+                that.LoadTodoList()
+              })
+            }
+            that.setData({
+            toastHidden: false
+          })
+        }
+      }
+    })
   },
 
   toggleTodo(e) {
@@ -86,7 +101,7 @@ Page({
     let todoId = e.currentTarget.dataset.id
     wx.showModal({
       title: '提示',
-      content: '是否删除待办',
+      content: '删除待办',
       success (res) {
         if (res.confirm) {
           data.deleteTodo(todoId, () => {

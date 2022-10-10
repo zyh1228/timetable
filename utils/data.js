@@ -184,12 +184,10 @@ function setWeekCourse(courseId, beginWeek, endWeek, day, jie, number, callback)
       let oldWeekCourse = weekCourseList.courses[courseId]
       for (let i = oldWeekCourse[0]; i <= oldWeekCourse[1]; i++) {
         let weekCourse = [...new Set(weekCourseList.courseWeek[i])]
-        // console.log([...new Set(weekCourseList.courseWeek[i])])
         let index = weekCourse.indexOf(courseId)
         if (index >= 0)
         weekCourse.splice(index, 1)
         weekCourseList.courseWeek[i] = weekCourse
-        // console.log(index, courseId, weekCourse)
 
         let weekDay = weekCourseList.weekDay[i]
         for (let j = 0; j < oldWeekCourse[4]; j++) {
@@ -232,7 +230,7 @@ function setWeekCourse(courseId, beginWeek, endWeek, day, jie, number, callback)
     else {
       delete weekCourseList.courses[courseId]
     }
-    console.log(weekCourseList)
+
     wx.setStorage({
       key: 'weekCourse',
       data: weekCourseList,
