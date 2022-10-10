@@ -12,7 +12,7 @@ Page({
     todos: [],
     todosCompleted: [],
     leftCount: 0,
-    allCompleted: false,
+    // allCompleted: false,
     toastHidden: true,
   },
 
@@ -47,13 +47,13 @@ Page({
 
   toggleAllTodos(e) {
     let todos = this.data.todos
-    this.data.allCompleted = !this.data.allCompleted
+    // this.data.allCompleted = !this.data.allCompleted
     for (let i = todos.length - 1; i >= 0; i--) {
-      if (todos[i].completed != this.data.allCompleted) {
-        data.setTodoStatus(todos[i].id, this.data.allCompleted, ()=>{
+      // if (todos[i].completed != this.data.allCompleted) {
+        data.setTodoStatus(todos[i].id, true, ()=>{
           this.LoadTodoList()
         })
-      }
+      // }
     }
     wx.vibrateShort()
   },
