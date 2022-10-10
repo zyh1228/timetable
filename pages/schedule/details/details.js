@@ -11,6 +11,7 @@ Page({
     coursePerDay: 0,
     name: '',
     address: '',
+    teacher: '',
     other: '',
     weekArray: [],
     beginWeek: 0,
@@ -73,6 +74,12 @@ Page({
     })
   },
 
+  teacherChanged(e) {
+    this.setData({
+      teacher: e.detail.value
+    })
+  },
+
   otherChanged(e) {
     this.setData({
       other: e.detail.value
@@ -92,6 +99,7 @@ Page({
       'address': this.data.address,
       'beginWeek': Number(this.data.beginWeek),
       'endWeek': Number(this.data.endWeek),
+      'teacher': this.data.teacher,
       'other': this.data.other,
     }
     if (course.name == '' || course.address == '') {
@@ -168,6 +176,7 @@ Page({
           address: course.address,
           beginWeek: course.beginWeek,
           endWeek: course.endWeek,
+          teacher: course.teacher,
           other: course.other,
         })
       })
