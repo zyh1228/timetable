@@ -104,7 +104,7 @@ Page({
     }
     if (this.data.courseId == undefined) {
       data.addCourse(course, ()=>{
-        data.getCourseList((courses)=>{console.log(courses)})
+        // data.getCourseList((courses)=>{console.log(courses)})
         wx.navigateBack()
       })
     }

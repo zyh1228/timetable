@@ -115,6 +115,7 @@ Page({
       this.setData({
         wList: weekCourse,
       })
+      console.log(week)
     })
   },
 
@@ -211,6 +212,7 @@ Page({
               course.jie = jie
               course.isToday = isToday
               data.setCourse(course.id, course, ()=>{
+                console.log('11')
                 that.getCourseList(that.data.pageNum)
               })
             }
@@ -284,10 +286,9 @@ Page({
         todayWeek: nowWeek,
         monthNum: month / 1, // 当前月份数字类型，用于数字运算
       })
+      this.getCourseList(pageNum)
     })
-    this.getCourseList(this.data.pageNum)
   },
-
   /**
    * 生命周期函数--监听页面隐藏
    */
