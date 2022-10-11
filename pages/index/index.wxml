@@ -1,32 +1,5 @@
 <!--pages/index/index.wxml-->
 
-<wxs module="filter">
-    var arr=[];
-    for(var i=0;i<100;i++){
-      arr[i]=1;
-    }
-    var high=[]
-    var k=0;
-    var day= function(value) {
-      if(arr[value]>0){
-        k=k+arr[value];
-        arr[value]=0;
-        high[value]=k;
-      }
-      return k;
-    }
-    var getjie=function(value){
-      day(value)
-      return high[value];
-    }
-    var dayCourse=function(){
-      return k;
-    }
-    module.exports.dayCourse=dayCourse
-    module.exports.getjie=getjie
-    module.exports.day= day
-</wxs>
-
 <view class="courseContainer">
 
   <!-- 课表区域 -->
@@ -37,17 +10,15 @@
           <text style="font-size: 25px; margin-left: 10px;">今天:{{month}}月{{day}}日，{{weekday[day-nowDay[0]]}}</text>
           <view wx:for="{{wList}}" wx:key="index" id="kcb-item-{{index}}" >
             <view class="smalltext" style="background-color:{{colorArrays[(item.id - 1) % colorArrays.length]}}" bindtap="gotoDetails" data-id="{{item.id}}" data-index="{{index}}" bindtouchstart="moveStarted" bindtouchend="moveEnd" bindtouchmove="moving" wx:if="{{day-nowDay[0]==item.isToday}}">
-              <view>今天的第{{filter.getjie(item.id)}}节课</view>
-              <text style="font-size: 16px;">课程名称：{{item.name}}</text>
+              <text style="font-size: 16px;" >课程名称：{{item.name}}</text>
               <view class="course-time">
             <view class="time-start" style="font-size: 16px;">开始时间：{{course_time[item.jie-1][0]}}</view>
             <view class="time-end" style="font-size: 16px;">结束时间：{{course_time[item.jie+item.classNumber-2][1]}}</view>
           </view>
+          <view>授课教师：{{item.teacher}}</view>
               <view class="smalltextAddress" style="font-size: 16px;">上课地址：{{item.address}}</view>
             </view>
           </view>
-          <view wx:if="{{filter.dayCourse()>0}}">今天一共{{filter.dayCourse()}}节课</view>
-          <view wx:else style="margin-left: 150rpx; font-size: 25px;">今日没课哦！</view>
           <text wx:if="{{leftCount>0}}">注意:剩余{{leftCount}}个任务未完成，待办中查看剩余任务</text>
           <block wx:else>
               <view class="nodata">
