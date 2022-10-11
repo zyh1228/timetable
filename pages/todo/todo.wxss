@@ -78,11 +78,7 @@ view, image {
   text-decoration: line-through;
   color: #888;
 }
-/* 
-.todos .item .remove {
-  cursor: pointer;
-}
-*/
+
 .footer {
   display: flex;
   justify-content: space-between;

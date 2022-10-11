@@ -1,39 +1,28 @@
 <!--pages/index/index.wxml-->
+<view class="header">
+  <view style="text-align: center; width: 100%; font-size: 30px;">今天是{{month}}月{{day}}日，{{weekday[day-nowDay[0]]}}</view>
+</view>
 
-<view class="courseContainer">
-
-  <!-- 课表区域 -->
-  <scroll-view scroll-x="false" scroll-y scroll-top="{{scrollTop}}" class="courseScroll" bindscroll="scrolling">
-    <view class="courseContent">
-      <view class="course">
-        <movable-area class="kcb-froeground" style="height: {{hight}}px !important;">
-          <text style="font-size: 25px; margin-left: 10px;">今天:{{month}}月{{day}}日，{{weekday[day-nowDay[0]]}}</text>
-          <view wx:for="{{wList}}" wx:key="index" id="kcb-item-{{index}}" >
-            <view class="smalltext" style="background-color:{{colorArrays[(item.id - 1) % colorArrays.length]}}" bindtap="gotoDetails" data-id="{{item.id}}" data-index="{{index}}" bindtouchstart="moveStarted" bindtouchend="moveEnd" bindtouchmove="moving" wx:if="{{day-nowDay[0]==item.isToday}}">
-              <text style="font-size: 16px;" >课程名称：{{item.name}}</text>
-              <view class="course-time">
-            <view class="time-start" style="font-size: 16px;">开始时间：{{course_time[item.jie-1][0]}}</view>
-            <view class="time-end" style="font-size: 16px;">结束时间：{{course_time[item.jie+item.classNumber-2][1]}}</view>
-          </view>
-          <view>授课教师：{{item.teacher}}</view>
-              <view class="smalltextAddress" style="font-size: 16px;">上课地址：{{item.address}}</view>
-            </view>
-          </view>
-          <text wx:if="{{leftCount>0}}">注意:剩余{{leftCount}}个任务未完成，待办中查看剩余任务</text>
-          <block wx:else>
-              <view class="nodata">
-		          <image class="nodata_img" src="/icons/nodata.png" style="width:400rpx; height:400rpx;margin-left: 130rpx;"></image>
-              <view class="nodata_text" style="font-size: 25px;margin-left: 70rpx;">今天的任务都完成了！</view>
-              </view>
-          </block>
-          <movable-view class="kcb-item" x="{{x}}" y="{{y}}" direction="all" damping="{{5000}}" friction="{{1}}" disabled="{{disabled}}">
-            <view class="smalltext" style="background-color:{{colorArrays[(wList[moveCourseIndex].id - 1) % colorArrays.length]}}; height: {{wList[moveCourseIndex].classNumber * 110 - 8}}rpx !important;" wx:if="{{!hidden}}">
-              <view class="smalltextName">{{wList[moveCourseIndex].name}}</view>
-              <view class="smalltextAddress">{{wList[moveCourseIndex].address}}</view>
-            </view>
-          </movable-view>
-        </movable-area>
+<scroll-view scroll-x="false" scroll-y scroll-top="{{scrollTop}}" class="container">
+  <view class="course">
+    <view>今日课程</view>
+    <view wx:for="{{wList}}" wx:if="{{day-nowDay[0]==item.isToday}}" wx:key="index" id="kcb-item-{{index}}">
+      <view class="item" style="background-color:{{colorArrays[(item.id - 1) % colorArrays.length]}}"  bindtap="gotoDetails" data-id="{{item.id}}" data-index="{{index}}">
+        <view class="courseName">{{item.name}}</view>
+        <view class="courseTime">时间：{{course_time[item.jie-1][0]}}-{{course_time[item.jie+item.classNumber-2][1]}}</view>
+        <view>授课教师：{{item.teacher}}</view>
+        <view>教室：{{item.address}}</view>
       </view>
     </view>
-  </scroll-view>
-</view>
+  </view>
+  <view class="todos">
+    <view>未完成待办</view>
+    <view wx:if="{{leftCount > 0}}">注意:剩余{{leftCount}}个任务未完成，待办中查看剩余任务</view>
+    <block wx:else>
+      <view class="nodata">
+      <image class="nodata_img" src="/icons/nodata.png"></image>
+      <view class="nodata_text" >今天的任务都完成了！</view>
+      </view>
+    </block>
+  </view>
+</scroll-view>
