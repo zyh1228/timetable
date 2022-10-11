@@ -1,12 +1,12 @@
 <!--pages/index/index.wxml-->
 <view class="header">
-  <view style="text-align: center; width: 100%; font-size: 30px;">今天是{{month}}月{{day}}日，{{weekday[day-nowDay[0]]}}</view>
+  <view style="text-align: center; width: 100%; font-size: 30px;">今天是{{month}}月{{day}}日，{{week[day-nowDay[0]]}}</view>
 </view>
 
 <scroll-view scroll-x="false" scroll-y scroll-top="{{scrollTop}}" class="container">
   <view class="course">
     <view>今日课程</view>
-    <view wx:for="{{wList}}" wx:if="{{day-nowDay[0]==item.isToday}}" wx:key="index" id="kcb-item-{{index}}">
+    <view wx:for="{{wList}}" wx:if="{{day - nowDay[0] == item.isToday}}" wx:key="index" id="kcb-item-{{index}}">
       <view class="item" style="background-color:{{colorArrays[(item.id - 1) % colorArrays.length]}}"  bindtap="gotoDetails" data-id="{{item.id}}" data-index="{{index}}">
         <view class="courseName">{{item.name}}</view>
         <view class="courseTime">时间：{{course_time[item.jie-1][0]}}-{{course_time[item.jie+item.classNumber-2][1]}}</view>
