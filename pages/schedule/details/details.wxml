@@ -57,6 +57,14 @@
     </view>
 
     <view class="fieldItem">
+      <label class="fieldLabel">授课教师</label>
+      <label class="fieldControl">
+        <input class="fieldInput w-full" value="{{teacher}}" placeholder="授课教师..." bindinput="teacherChanged">
+        </input>
+      </label>
+    </view>
+
+    <view class="fieldItem">
       <label class="fieldLabel">其他</label>
       <label class="fieldControl">
         <textarea class="fieldInput w-full textarea" value="{{other}}" placeholder="其他..." bindinput="otherChanged">

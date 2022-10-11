@@ -346,8 +346,14 @@ function getTodoStatusList(callback) {
 function setTodoStatus(todoId, isCompoleted, callback) {
   if (isCompoleted == undefined) {
     getTodoStatus((todoStatus) => {
-      todoStatus.completed.splice(todoStatus.completed.indexOf(todoId), 1)
-      todoStatus.uncompleted.splice(todoStatus.uncompleted.indexOf(todoId), 1)
+      let index = todoStatus.completed.indexOf(todoId)
+      if (index >= 0) {
+        todoStatus.completed.splice(index, 1)
+      }
+      index = todoStatus.uncompleted.indexOf(todoId)
+      if (index >= 0) {
+        todoStatus.uncompleted.splice(index, 1)
+      }
       wx.setStorage({
         key: 'todoStatus',
         data: todoStatus,
