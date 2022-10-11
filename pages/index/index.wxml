@@ -48,7 +48,7 @@
           </view>
           <view wx:if="{{filter.dayCourse()>0}}">今天一共{{filter.dayCourse()}}节课</view>
           <view wx:else style="margin-left: 150rpx; font-size: 25px;">今日没课哦！</view>
-          <text wx:if="{{leftCount>0}}">注意:剩余{{leftCount}}个任务未完成：</text>
+          <text wx:if="{{leftCount>0}}">注意:剩余{{leftCount}}个任务未完成，待办中查看剩余任务</text>
           <block wx:else>
               <view class="nodata">
 		          <image class="nodata_img" src="/icons/nodata.png" style="width:400rpx; height:400rpx;margin-left: 130rpx;"></image>
